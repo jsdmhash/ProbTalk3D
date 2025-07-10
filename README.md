@@ -1,13 +1,25 @@
-## **ProbTalk3D**
-Official PyTorch implementation for the paper:
+## **ProbTalk3D & ProbTalk3D-X**
+Official PyTorch implementation for the papers:
 
 > **ProbTalk3D: Non-Deterministic Emotion Controllable Speech-Driven 3D Facial Animation Synthesis Using VQ-VAE. (Accepted at [ACM SIGGRAPH MIG 2024](https://sgmig.hosting.acm.org/mig-2024/))**
 >
+>Authors: Sichun Wu, Kazi Injamamul Haque, Zerrin Yumak
+
+> &
+
+> **ProbTalk3D-X: Prosody Enhanced Non-Deterministic Emotion Controllable Speech-Driven 3D Facial Animation Synthesis**
+>
+> Authors: Kazi Injamamul Haque, Sichun Wu, Zerrin Yumak
+
 > <a href='https://uuembodiedsocialai.github.io/ProbTalk3D/'><img src='https://img.shields.io/badge/Project-Website-blue'></a>
 > <a href='https://arxiv.org/pdf/2409.07966'><img src='https://img.shields.io/badge/arXiv-Paper-red'></a> 
 > <a href='https://uuembodiedsocialai.github.io/ProbTalk3D/#video-container'><img src='https://img.shields.io/badge/Project-Video-Green'></a> 
 > 
-> We propose ProbTalk3D, a VQ-VAE based probabilistic model for emotion controllable speech-driven 3D facial animation synthesis. ProbTalk3D first learns a motion prior using VQ-VAE codebook matching, then trains a speech and emotion conditioned network leveraging this prior. During inference, probabilistic sampling of latent codebook embeddings enables non-deterministic outputs.
+> We propose ProbTalk3D and ProbTalk3D-X, VQ-VAE based probabilistic models for emotion controllable speech-driven 3D facial animation synthesis. ProbTalk3D first learns a motion prior using VQ-VAE codebook matching, then trains a speech and emotion conditioned network leveraging this prior. During inference, probabilistic sampling of latent codebook embeddings enables non-deterministic outputs. ProbTalk3D-X further improves the results by incorporating prosody features in the training process. 
+
+> The "main" branch contains the codebase for ProbTalk3D
+
+> The "WithProsody" branch contains the codebase for ProbTalk3D-X
 
 ## **Environment**
 <details><summary>Click to expand</summary>
