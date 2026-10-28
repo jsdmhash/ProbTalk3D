@@ -7,8 +7,23 @@ logger = logging.getLogger(__name__)
 
 
 def load_checkpoint(model, ckpt_path, *, eval_mode, device):
-    checkpoint = torch.load(ckpt_path, map_location=device)
-    model.load_state_dict(checkpoint["state_dict"])
+    checkpoint = torch.load(ckpt_path, map_location=device, weights_only=False)  # PATCH: torch>=2.6 default
+    state = checkpoint["state_dict"]
+    # PATCH: map old weight-norm names to the names the current model uses
+    model_keys = set(model.state_dict().keys())
+    remapped = {}
+    for k, v in state.items():
+        if k not in model_keys:
+            if k.endswith(".weight_g"):
+                k2 = k[:-len(".weight_g")] + ".parametrizations.weight.original0"
+            elif k.endswith(".weight_v"):
+                k2 = k[:-len(".weight_v")] + ".parametrizations.weight.original1"
+            else:
+                k2 = k
+            if k2 in model_keys:
+                k = k2
+        remapped[k] = v
+    model.load_state_dict(remapped)
     logger.info("Model weights restored.")
 
     if eval_mode:

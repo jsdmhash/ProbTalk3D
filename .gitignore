@@ -2,3 +2,14 @@
 model_weights/
 **/__pycache__/
 
+model_weights/
+weights.zip
+results/generation/vqvae_pred/
+*.npy
+*.mp4
+*.log
+__pycache__/
+.ipynb_checkpoints/
+/*.png
+logs.*
+one_audio/

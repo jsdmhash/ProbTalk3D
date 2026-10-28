@@ -19,7 +19,7 @@ class HuBERT(pl.LightningModule):
 
         from transformers import Wav2Vec2Processor
         from transformers import logging
-        from deps.hubert.modeling_hubert import HubertModel
+        from transformers import HubertModel   # PATCH
         logging.set_verbosity_error()
         os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
