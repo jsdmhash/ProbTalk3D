@@ -1,0 +1,22 @@
+=== DATE ===
+2026-11-11 12:35:49 EST
+=== DF ===
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/nvme0n1p5   88G   13G   76G  15% /mnt/SHARED
+=== HEAD reconstruction_v1.zip ===
+HTTP/1.1 200 OK
+Server: nginx/1.22.1
+Date: Wed, 11 Nov 2026 17:45:50 GMT
+Content-Type: application/zip
+Content-Length: 6140938131
+Last-Modified: Sun, 03 Dec 2023 03:28:46 GMT
+Connection: keep-alive
+ETag: "656bf5ee-16e074793"
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, OPTIONS
+Access-Control-Allow-Headers: Content-Type, Authorization
+Accept-Ranges: bytes
+
+=== CHECK MEAD.html ===
+FINAL_URL:https://wywu.github.io/projects/MEAD/MEAD.html HTTP:404
+<title>Page not found | Wayne Wu</title>
