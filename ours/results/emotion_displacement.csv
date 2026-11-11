@@ -1,0 +1,9 @@
+emotion,speaker,intensity,mouth_lve_mm,upper_face_fdd_mm,full_face_mm,max_vertex_mm
+neutral,M009,high,0.0000,0.0000,0.0000,0.0000
+happy,M009,high,4.5644,0.9472,1.1031,6.8651
+sad,M009,high,3.1725,1.2315,1.1071,4.7063
+surprised,M009,high,1.9837,0.4887,0.5205,3.2675
+fear,M009,high,2.1223,0.4132,0.5236,2.9447
+disgusted,M009,high,5.4292,2.0530,1.8268,8.8257
+angry,M009,high,3.2893,1.2638,1.0921,7.2563
+contempt,M009,high,3.4890,1.4896,1.2762,5.6062
