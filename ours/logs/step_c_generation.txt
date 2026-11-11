@@ -1,0 +1,94 @@
+[11/10/26 23:26:36] INFO     Sample script. The outputs will be generation.py:79
+                             stored in:                                         
+                    INFO     /mnt/SHARED/ProbTalk3D/results/gen generation.py:94
+                             eration/vqvae_pred/stage_2/none                    
+                    INFO     Using default motion prior.       generation.py:102
+                    INFO     Loading model                     generation.py:108
+[11/10/26 23:26:44] INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/agent-ha                
+                             rnesses "HTTP/1.1 200 OK"                          
+                    INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/models/f                
+                             acebook/hubert-xlarge-ls960-ft/revi                
+                             sion/main "HTTP/1.1 200 OK"                        
+                    INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/models/f                
+                             acebook/hubert-xlarge-ls960-ft/tree                
+                             /main/additional_chat_templates?rec                
+                             ursive=false&expand=false "HTTP/1.1                
+                             404 Not Found"                                     
+                    INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/models/f                
+                             acebook/hubert-xlarge-ls960-ft/tree                
+                             /main/additional_chat_templates?rec                
+                             ursive=false&expand=false "HTTP/1.1                
+                             404 Not Found"                                     
+                    INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/models/f                
+                             acebook/hubert-xlarge-ls960-ft/tree                
+                             /main?recursive=true&expand=false                  
+                             "HTTP/1.1 200 OK"                                  
+                    INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/models/f                
+                             acebook/hubert-base-ls960/revision/                
+                             main "HTTP/1.1 200 OK"                             
+                    INFO     HTTP Request: HEAD                  _client.py:1025
+                             https://huggingface.co/facebook/hub                
+                             ert-base-ls960/resolve/main/model.s                
+                             afetensors "HTTP/1.1 404 Not Found"                
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+                    WARNING  Warning: You are sending               _http.py:993
+                             unauthenticated requests to the HF                 
+                             Hub. Please set a HF_TOKEN to enable               
+                             higher rate limits and faster                      
+                             downloads.                                         
+[11/10/26 23:26:45] INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/models/f                
+                             acebook/hubert-base-ls960 "HTTP/1.1                
+                             200 OK"                                            
+                    INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/models/f                
+                             acebook/hubert-base-ls960/commits/m                
+                             ain "HTTP/1.1 200 OK"                              
+                    INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/models/f                
+                             acebook/hubert-base-ls960/discussio                
+                             ns?p=0 "HTTP/1.1 200 OK"                           
+                    INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/models/f                
+                             acebook/hubert-base-ls960/commits/r                
+                             efs%2Fpr%2F2 "HTTP/1.1 200 OK"                     
+Loading weights:   0%|          | 0/211 [00:00<?, ?it/s]Loading weights: 100%|██████████| 211/211 [00:00<00:00, 17451.80it/s]
+                    INFO     HTTP Request: HEAD                  _client.py:1025
+                             https://huggingface.co/facebook/hub                
+                             ert-base-ls960/resolve/refs%2Fpr%2F                
+                             2/model.safetensors.index.json                     
+                             "HTTP/1.1 404 Not Found"                           
+                    INFO     HTTP Request: HEAD                  _client.py:1025
+                             https://huggingface.co/facebook/hub                
+                             ert-base-ls960/resolve/refs%2Fpr%2F                
+                             2/model.safetensors "HTTP/1.1 302                  
+                             Found"                                             
+                    INFO     1. Audio feature extractor   model_vqvae_pred.py:31
+                             'HuBERT' loaded                                    
+                    INFO     (1). Motion Encoder         model_vqvae_prior.py:24
+                             'transformer_encoder'                              
+                             loaded                                             
+                    INFO     (2). Motion Decoder         model_vqvae_prior.py:26
+                             'transformer_decoder'                              
+                             loaded                                             
+                    INFO     2. 'VQVAE Motion             model_vqvae_pred.py:44
+                             Autoencoder' loaded                                
+                    INFO     Model weights restored.                 tools.py:27
+                    INFO     Model in eval mode.                     tools.py:31
+                    INFO     3. 'Audio Encoder' loaded    model_vqvae_pred.py:59
+                    INFO     Model 'ProbTalk3D' loaded         generation.py:117
+device checking: cpu
+[11/10/26 23:26:48] INFO     Model weights restored.                 tools.py:27
+                    INFO     Model in eval mode.                     tools.py:31
+Audio: happy Style: ['M009_x_1_2'] Sample number: 1
+
+[11/10/26 23:26:50] INFO     All the sampling are done. You    generation.py:253
+                             can find them here:                                
+                             /mnt/SHARED/ProbTalk3D/results/ge                  
+                             neration/vqvae_pred/stage_2/none                   

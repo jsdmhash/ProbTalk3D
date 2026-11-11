@@ -67,3 +67,48 @@ Branch: `colab-inference-fixes`
   - None.
 - **Open questions:**
   - None.
+
+---
+
+## 2026-11-10 23:28:14 EST — Step C: Verify `ProbTalkEngine` matches `generation.py` (`smoke_test.py`)
+
+- **Files added or changed:**
+  - Modified `.gitignore` (added `ours/logs/smoke_audio/` under Runtime Inference I/O Directories)
+  - Modified `docs/STATUS.md` (this entry)
+  - Added `ours/logs/step_c_generation.txt`
+  - Added `ours/logs/smoke_test.txt`
+  - Generated locally (ignored by `.gitignore`): `ours/logs/smoke_audio/happy.wav`, `results/generation/vqvae_pred/stage_2/none/happy_M009_happy_high.npy` (`454K`)
+- **Exact commands run:**
+  ```bash
+  mkdir -p ours/logs/smoke_audio && cp results/generation/test_audio/happy.wav ours/logs/smoke_audio/
+  /mnt/SHARED/ProbTalk3D/.venv/bin/python generation.py folder=model_weights/ProbTalk3D/stage_2 input_path=ours/logs/smoke_audio id=[\"M009\"] emotion=[\"happy\"] intensity=[2] sample=false > ours/logs/step_c_generation.txt 2>&1
+  /mnt/SHARED/ProbTalk3D/.venv/bin/python ours/app/smoke_test.py results/generation/vqvae_pred/stage_2/none/happy_M009_happy_high.npy > ours/logs/smoke_test.txt 2>&1
+  ```
+- **Key output lines:**
+  Key lines from `ours/logs/step_c_generation.txt`:
+  ```
+  Audio: happy Style: ['M009_x_1_2'] Sample number: 1
+  INFO     All the sampling are done. You can find them here: /mnt/SHARED/ProbTalk3D/results/generation/vqvae_pred/stage_2/none
+  ```
+  Full output of `ours/logs/smoke_test.txt`:
+  ```
+  Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+  Loading weights: 100%|██████████| 211/211 [00:00<00:00, 12118.45it/s]
+  /mnt/SHARED/ProbTalk3D/.venv/lib/python3.13/site-packages/sklearn/base.py:380: InconsistentVersionWarning: Trying to unpickle estimator MinMaxScaler from version 1.1.3 when using version 1.6.1. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+  https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+    warnings.warn(
+  model load: 13.27 s on cpu
+  style key: M009_x_1_2 | timing: {'audio_seconds': 5.78, 'generate_seconds': 1.76}
+  engine shape: (1, 144, 403) | generation.py shape: (1, 144, 403)
+  max abs difference vs generation.py: 0.000e+00
+  MATCH
+  sampled 2 takes: {'audio_seconds': 5.78, 'generate_seconds': 1.18} | takes differ: True
+  ```
+- **What worked:**
+  - `generation.py` produced `results/generation/vqvae_pred/stage_2/none/happy_M009_happy_high.npy` (`454K`).
+  - `ProbTalkEngine` loaded `stage_2` in `13.27 s` on `cpu` and generated `(1, 144, 403)` in `1.76 s` with `max abs difference vs generation.py: 0.000e+00` (`MATCH`).
+  - Sampling `takes=2` (`sample=True`, `temperature=0.2`, `happy`, `medium`) ran in `1.18 s` and reported `takes differ: True`.
+- **What failed:**
+  - None.
+- **Open questions:**
+  - Both `generation.py` and `smoke_test.py` hit `huggingface.co` API endpoints on load even when weights are cached, and `MinMaxScaler` logs `InconsistentVersionWarning` (`1.1.3` vs `1.6.1`) without affecting numerical parity (`0.000e+00`).
