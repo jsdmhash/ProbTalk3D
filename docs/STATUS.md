@@ -287,3 +287,61 @@ Branch: `colab-inference-fixes`
   - Initial `diversity_row.png` clipped the single-row suptitle against the top of the tiles; fixed `save_grid` header sizing in `ours/make_comparisons.py` and re-verified all PNGs visually.
 - **Open questions:**
   - In Task 2(a) we passed explicit `intensity=[2]` for all 8 emotions including `neutral` (`M009_x_0_2`) to keep every variable fixed except `emotion`; note in `MEAD` ground truth `neutral` only has intensity level `0` (so `ours/app/engine.py` forces `ints=0` for `neutral`). Also `datasets/regions/lve.txt` (`428` vertices) includes some indices above `3930` as distributed by the authors.
+
+---
+
+## 2026-11-11 12:35:49 EST — TASK 3: Ground-truth dataset check (no big downloads)
+
+- **Files added or changed:**
+  - Added `ours/logs/task3_check.txt`
+  - Modified `docs/STATUS.md` (this entry)
+  - *(Preceding commit `f676215` added `ours/space/deploy_space.py` cleanly before Task 3.)*
+- **Files inspected:**
+  - `datasets/3DMEAD_preprocess/README.md`
+  - `datasets/3DMEAD_preprocess/EMICA-MEAD_flame2020/README.md`
+  - `datasets/3DMEAD_preprocess/MEAD_audio_source/README.md`
+  - `datasets/3DMEAD_preprocess/process_animation.py` & `process_audio.py`
+  - `framework/data/mead.py` & `configs/data/mead_pred.yaml` & `configs/data/mead_prior.yaml`
+  - `datasets/mead-splits-pred/{train,val,test,rest}` & `datasets/mead-splits-prior/{train,val,test}`
+- **Exact commands run:**
+  ```bash
+  df -h /mnt/SHARED
+  curl -sIL --max-time 10 "https://download.is.tue.mpg.de/emote/mead_25fps/processed/reconstruction_v1.zip"
+  curl -sL --max-time 10 -w "FINAL_URL:%{url_effective} HTTP:%{http_code}\n" -o /tmp/mead_check.html "https://wywu.github.io/projects/MEAD/MEAD.html"
+  ```
+- **Key output lines:**
+  From `ours/logs/task3_check.txt`:
+  ```
+  === DF ===
+  Filesystem      Size  Used Avail Use% Mounted on
+  /dev/nvme0n1p5   88G   13G   76G  15% /mnt/SHARED
+  === HEAD reconstruction_v1.zip ===
+  HTTP/1.1 200 OK
+  Content-Type: application/zip
+  Content-Length: 6140938131
+  Last-Modified: Sun, 03 Dec 2023 03:28:46 GMT
+  === CHECK MEAD.html ===
+  FINAL_URL:https://wywu.github.io/projects/MEAD/MEAD.html HTTP:404
+  <title>Page not found | Wayne Wu</title>
+  ```
+- **Findings:**
+  1. **Download links, registration, and file sizes:**
+     - **Audio (`MEAD_audio_source`):** `datasets/3DMEAD_preprocess/README.md` links `https://wywu.github.io/projects/MEAD/MEAD.html` (and notes extracting per-subject `audio.tar` archives, while `MEAD_audio_source/README.md` only states subject folders `M003, M005, ...`). Neither README lists registration steps or file sizes. Our `curl` check shows `wywu.github.io/projects/MEAD/MEAD.html` currently returns **HTTP 404** (`Page not found | Wayne Wu`). Web search (`github.com/wywu/MEAD` / `uniBruce/Mead`) indicates original MEAD access requires completing an academic registration/terms Google Form to receive Google Drive / Baidu folder links, with per-actor `audio.tar` archives typically around ~60–70 MB each.
+     - **3D FLAME animations (`EMICA-MEAD_flame2020`):** `datasets/3DMEAD_preprocess/README.md` links `https://download.is.tue.mpg.de/emote/mead_25fps/processed/reconstruction_v1.zip` (plus `https://github.com/uuembodiedsocialai/ProbTalk3D/issues/11` for renaming mismatched sequence folders such as `W036`; `EMICA-MEAD_flame2020/README.md` notes 47 subject folders `M003, M005, ...`). Neither README lists registration or size. HTTP `HEAD` returned **`HTTP/1.1 200 OK`** directly without a login redirect and reported **`Content-Length: 6140938131` bytes (~6.14 GB / ~5.72 GiB)**.
+  2. **Local dataset & disk status:**
+     - `datasets/mead/param/` and `datasets/mead/wav/` contain only `README.md` placeholders (no dataset files on disk yet).
+     - `df -h /mnt/SHARED`: **`76G` available** (`88G` size, `13G` used, `15%` used).
+  3. **Test split speakers & sentences (`framework/data/mead.py`, `split == "test"`):**
+     - **Filename format** (`process_animation.py`, `process_audio.py`): `{subject}_{seq}_{emotion}_{intensity}.{npy|wav}`, split on `_` into `[0]=subject, [1]=seq, [2]=emotion, [3]=intensity`.
+     - **Stage 2 / Pred speakers** (`configs/data/mead_pred.yaml` -> `datasets/mead-splits-pred/test`, `load_audio: true`): **32 speakers** (`18` `M*` + `14` `W*`):
+       `M003, M005, M007, M009, M011, M012, M013, M019, M022, M023, M024, M025, M026, M027, M028, M029, M030, M031, W009, W011, W014, W015, W016, W018, W019, W021, W023, W024, W025, W026, W028, W029`.
+       Notice `datasets/mead-splits-pred/train`, `val`, and `test` all contain the exact same 32 speakers (split by sentence; `rest` holds the remaining 15 subjects). By contrast, Stage 1 / Prior (`configs/data/mead_prior.yaml`, `load_audio: false`) points at `datasets/mead-splits-prior/test` (`8` held-out speakers `M037, M039, M040, M041, M042, W037, W038, W040`) and loads all `.npy` files with `split=None`.
+     - **Test sentences (`framework/data/mead.py` lines 184–192, `load_audio=True`):**
+       - **Neutral (`int(key_split[2]) == 0`)**: `range(37, 41)` -> sentences **`037`–`040`** (`37, 38, 39, 40`; `4` sentences).
+       - **Emotional (`int(key_split[2]) != 0`, emotions `1..7`)**: `range(28, 31)` -> sentences **`028`–`030`** (`28, 29, 30`; `3` sentences per emotion × intensity).
+- **What worked:**
+  - Confirmed `reconstruction_v1.zip` URL serves `200 OK` (`5.72 GiB` compressed), `76G` free on `/mnt/SHARED`, and exact `split == "test"` speaker/sentence logic.
+- **What failed:**
+  - `https://wywu.github.io/projects/MEAD/MEAD.html` in `datasets/3DMEAD_preprocess/README.md` currently returns **HTTP 404** (`Page not found`), so an alternative MEAD audio mirror or prior registration download link will be needed if running full ground-truth `evaluation.py` (which requires matching `.wav` + `.npy` pairs).
+- **Open questions:**
+  - Do we have existing access/links to `MEAD_audio_source` (`audio.tar`), or should any ground-truth check evaluate on a subset (or check `uniBruce/Mead` / HuggingFace mirrors) given `MEAD.html` returns 404 and extracted `reconstruction_v1.zip` + `MEAD` audio must fit comfortably within `76G` free?
