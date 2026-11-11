@@ -1,0 +1,8 @@
+$ /mnt/SHARED/ProbTalk3D/.venv/bin/python ours/face_render.py results/generation/vqvae_pred/stage_2/0.2/happy_M009_happy_medium.npy ours/checks/happy_v2.mp4 --wav results/generation/test_audio/happy.wav
+wrote ours/checks/happy_v2.mp4 frames: 144
+exit=0 elapsed_seconds=28.42
+
+$ /mnt/SHARED/ProbTalk3D/.venv/bin/python ours/face_render.py results/generation/vqvae_pred/stage_2/0.2/happy_M009_happy_medium.npy ours/checks/frame25.png --frame 25
+wrote ours/checks/frame25.png
+exit=0 elapsed_seconds=1.52
+
