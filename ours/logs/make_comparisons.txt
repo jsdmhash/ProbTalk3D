@@ -1,0 +1,53 @@
+[run] /mnt/SHARED/ProbTalk3D/.venv/bin/python /mnt/SHARED/ProbTalk3D/generation.py folder=model_weights/ProbTalk3D/stage_2 input_path=ours/runs/neutral_audio 'id=["M009"]' 'emotion=["neutral"]' 'intensity=[2]' sample=false temperature=0.2 number_of_samples=1
+[ok] ours/runs/emotion_grid/neutral (15.95 s) -> ['neutral_M009_neutral_high.npy']
+[run] /mnt/SHARED/ProbTalk3D/.venv/bin/python /mnt/SHARED/ProbTalk3D/generation.py folder=model_weights/ProbTalk3D/stage_2 input_path=ours/runs/neutral_audio 'id=["M009"]' 'emotion=["happy"]' 'intensity=[2]' sample=false temperature=0.2 number_of_samples=1
+[ok] ours/runs/emotion_grid/happy (13.43 s) -> ['neutral_M009_happy_high.npy']
+[run] /mnt/SHARED/ProbTalk3D/.venv/bin/python /mnt/SHARED/ProbTalk3D/generation.py folder=model_weights/ProbTalk3D/stage_2 input_path=ours/runs/neutral_audio 'id=["M009"]' 'emotion=["sad"]' 'intensity=[2]' sample=false temperature=0.2 number_of_samples=1
+[ok] ours/runs/emotion_grid/sad (13.13 s) -> ['neutral_M009_sad_high.npy']
+[run] /mnt/SHARED/ProbTalk3D/.venv/bin/python /mnt/SHARED/ProbTalk3D/generation.py folder=model_weights/ProbTalk3D/stage_2 input_path=ours/runs/neutral_audio 'id=["M009"]' 'emotion=["surprised"]' 'intensity=[2]' sample=false temperature=0.2 number_of_samples=1
+[ok] ours/runs/emotion_grid/surprised (12.71 s) -> ['neutral_M009_surprised_high.npy']
+[run] /mnt/SHARED/ProbTalk3D/.venv/bin/python /mnt/SHARED/ProbTalk3D/generation.py folder=model_weights/ProbTalk3D/stage_2 input_path=ours/runs/neutral_audio 'id=["M009"]' 'emotion=["fear"]' 'intensity=[2]' sample=false temperature=0.2 number_of_samples=1
+[ok] ours/runs/emotion_grid/fear (12.13 s) -> ['neutral_M009_fear_high.npy']
+[run] /mnt/SHARED/ProbTalk3D/.venv/bin/python /mnt/SHARED/ProbTalk3D/generation.py folder=model_weights/ProbTalk3D/stage_2 input_path=ours/runs/neutral_audio 'id=["M009"]' 'emotion=["disgusted"]' 'intensity=[2]' sample=false temperature=0.2 number_of_samples=1
+[ok] ours/runs/emotion_grid/disgusted (12.76 s) -> ['neutral_M009_disgusted_high.npy']
+[run] /mnt/SHARED/ProbTalk3D/.venv/bin/python /mnt/SHARED/ProbTalk3D/generation.py folder=model_weights/ProbTalk3D/stage_2 input_path=ours/runs/neutral_audio 'id=["M009"]' 'emotion=["angry"]' 'intensity=[2]' sample=false temperature=0.2 number_of_samples=1
+[ok] ours/runs/emotion_grid/angry (11.66 s) -> ['neutral_M009_angry_high.npy']
+[run] /mnt/SHARED/ProbTalk3D/.venv/bin/python /mnt/SHARED/ProbTalk3D/generation.py folder=model_weights/ProbTalk3D/stage_2 input_path=ours/runs/neutral_audio 'id=["M009"]' 'emotion=["contempt"]' 'intensity=[2]' sample=false temperature=0.2 number_of_samples=1
+[ok] ours/runs/emotion_grid/contempt (11.91 s) -> ['neutral_M009_contempt_high.npy']
+[frame] auto-selected open-mouth frame 170/197 (mean jaw_x=0.1866 rad; happy jaw_x=0.1597, surprised jaw_x=0.1962)
+[wrote] ours/results/emotion_grid.png
+[run] /mnt/SHARED/ProbTalk3D/.venv/bin/python /mnt/SHARED/ProbTalk3D/generation.py folder=model_weights/ProbTalk3D/stage_2 input_path=ours/runs/neutral_audio 'id=["M009"]' 'emotion=["happy"]' 'intensity=[0]' sample=false temperature=0.2 number_of_samples=1
+[ok] ours/runs/intensity_row/happy_low (12.46 s) -> ['neutral_M009_happy_low.npy']
+[run] /mnt/SHARED/ProbTalk3D/.venv/bin/python /mnt/SHARED/ProbTalk3D/generation.py folder=model_weights/ProbTalk3D/stage_2 input_path=ours/runs/neutral_audio 'id=["M009"]' 'emotion=["happy"]' 'intensity=[1]' sample=false temperature=0.2 number_of_samples=1
+[ok] ours/runs/intensity_row/happy_medium (12.44 s) -> ['neutral_M009_happy_medium.npy']
+[run] /mnt/SHARED/ProbTalk3D/.venv/bin/python /mnt/SHARED/ProbTalk3D/generation.py folder=model_weights/ProbTalk3D/stage_2 input_path=ours/runs/neutral_audio 'id=["M009"]' 'emotion=["happy"]' 'intensity=[2]' sample=false temperature=0.2 number_of_samples=1
+[ok] ours/runs/intensity_row/happy_high (11.95 s) -> ['neutral_M009_happy_high.npy']
+[run] /mnt/SHARED/ProbTalk3D/.venv/bin/python /mnt/SHARED/ProbTalk3D/generation.py folder=model_weights/ProbTalk3D/stage_2 input_path=ours/runs/neutral_audio 'id=["M009"]' 'emotion=["angry"]' 'intensity=[0]' sample=false temperature=0.2 number_of_samples=1
+[ok] ours/runs/intensity_row/angry_low (13.33 s) -> ['neutral_M009_angry_low.npy']
+[run] /mnt/SHARED/ProbTalk3D/.venv/bin/python /mnt/SHARED/ProbTalk3D/generation.py folder=model_weights/ProbTalk3D/stage_2 input_path=ours/runs/neutral_audio 'id=["M009"]' 'emotion=["angry"]' 'intensity=[1]' sample=false temperature=0.2 number_of_samples=1
+[ok] ours/runs/intensity_row/angry_medium (12.16 s) -> ['neutral_M009_angry_medium.npy']
+[run] /mnt/SHARED/ProbTalk3D/.venv/bin/python /mnt/SHARED/ProbTalk3D/generation.py folder=model_weights/ProbTalk3D/stage_2 input_path=ours/runs/neutral_audio 'id=["M009"]' 'emotion=["angry"]' 'intensity=[2]' sample=false temperature=0.2 number_of_samples=1
+[ok] ours/runs/intensity_row/angry_high (12.39 s) -> ['neutral_M009_angry_high.npy']
+[run] /mnt/SHARED/ProbTalk3D/.venv/bin/python /mnt/SHARED/ProbTalk3D/generation.py folder=model_weights/ProbTalk3D/stage_2 input_path=ours/runs/neutral_audio 'id=["M009"]' 'emotion=["surprised"]' 'intensity=[0]' sample=false temperature=0.2 number_of_samples=1
+[ok] ours/runs/intensity_row/surprised_low (12.05 s) -> ['neutral_M009_surprised_low.npy']
+[run] /mnt/SHARED/ProbTalk3D/.venv/bin/python /mnt/SHARED/ProbTalk3D/generation.py folder=model_weights/ProbTalk3D/stage_2 input_path=ours/runs/neutral_audio 'id=["M009"]' 'emotion=["surprised"]' 'intensity=[1]' sample=false temperature=0.2 number_of_samples=1
+[ok] ours/runs/intensity_row/surprised_medium (13.17 s) -> ['neutral_M009_surprised_medium.npy']
+[run] /mnt/SHARED/ProbTalk3D/.venv/bin/python /mnt/SHARED/ProbTalk3D/generation.py folder=model_weights/ProbTalk3D/stage_2 input_path=ours/runs/neutral_audio 'id=["M009"]' 'emotion=["surprised"]' 'intensity=[2]' sample=false temperature=0.2 number_of_samples=1
+[ok] ours/runs/intensity_row/surprised_high (11.86 s) -> ['neutral_M009_surprised_high.npy']
+[wrote] ours/results/intensity_row.png
+[regions] lve_ids=428 fdd_ids=1501
+[wrote] ours/results/emotion_displacement.csv
+  neutral    | mouth(lve)=0.0000 mm | upper(fdd)=0.0000 mm | full=0.0000 mm | max=0.0000 mm
+  happy      | mouth(lve)=4.5644 mm | upper(fdd)=0.9472 mm | full=1.1031 mm | max=6.8651 mm
+  sad        | mouth(lve)=3.1725 mm | upper(fdd)=1.2315 mm | full=1.1071 mm | max=4.7063 mm
+  surprised  | mouth(lve)=1.9837 mm | upper(fdd)=0.4887 mm | full=0.5205 mm | max=3.2675 mm
+  fear       | mouth(lve)=2.1223 mm | upper(fdd)=0.4132 mm | full=0.5236 mm | max=2.9447 mm
+  disgusted  | mouth(lve)=5.4292 mm | upper(fdd)=2.0530 mm | full=1.8268 mm | max=8.8257 mm
+  angry      | mouth(lve)=3.2893 mm | upper(fdd)=1.2638 mm | full=1.0921 mm | max=7.2563 mm
+  contempt   | mouth(lve)=3.4890 mm | upper(fdd)=1.4896 mm | full=1.2762 mm | max=5.6062 mm
+[wrote] ours/results/displacement_heatmaps.png
+[run] /mnt/SHARED/ProbTalk3D/.venv/bin/python /mnt/SHARED/ProbTalk3D/generation.py folder=model_weights/ProbTalk3D/stage_2 input_path=ours/runs/neutral_audio 'id=["M009"]' 'emotion=["happy"]' 'intensity=[2]' sample=true temperature=0.2 number_of_samples=3
+[ok] ours/runs/diversity_row/happy_high (15.17 s) -> ['neutral_M009_happy_high(1).npy', 'neutral_M009_happy_high(2).npy', 'neutral_M009_happy_high(3).npy']
+[diversity] T=0.2 3 takes | mean exp+jaw MAD=0.07581 | mean 3D vertex pairwise diff=0.3394 mm
+[wrote] ours/results/diversity_row.png
+[wrote] ours/results/diversity_3takes.mp4 frames=198 elapsed=84.46 s

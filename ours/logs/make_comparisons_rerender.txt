@@ -1,0 +1,35 @@
+[skip] ours/runs/emotion_grid/neutral already has 1 npy file(s)
+[skip] ours/runs/emotion_grid/happy already has 1 npy file(s)
+[skip] ours/runs/emotion_grid/sad already has 1 npy file(s)
+[skip] ours/runs/emotion_grid/surprised already has 1 npy file(s)
+[skip] ours/runs/emotion_grid/fear already has 1 npy file(s)
+[skip] ours/runs/emotion_grid/disgusted already has 1 npy file(s)
+[skip] ours/runs/emotion_grid/angry already has 1 npy file(s)
+[skip] ours/runs/emotion_grid/contempt already has 1 npy file(s)
+[frame] auto-selected open-mouth frame 170/197 (mean jaw_x=0.1866 rad; happy jaw_x=0.1597, surprised jaw_x=0.1962)
+[wrote] ours/results/emotion_grid.png
+[skip] ours/runs/intensity_row/happy_low already has 1 npy file(s)
+[skip] ours/runs/intensity_row/happy_medium already has 1 npy file(s)
+[skip] ours/runs/intensity_row/happy_high already has 1 npy file(s)
+[skip] ours/runs/intensity_row/angry_low already has 1 npy file(s)
+[skip] ours/runs/intensity_row/angry_medium already has 1 npy file(s)
+[skip] ours/runs/intensity_row/angry_high already has 1 npy file(s)
+[skip] ours/runs/intensity_row/surprised_low already has 1 npy file(s)
+[skip] ours/runs/intensity_row/surprised_medium already has 1 npy file(s)
+[skip] ours/runs/intensity_row/surprised_high already has 1 npy file(s)
+[wrote] ours/results/intensity_row.png
+[regions] lve_ids=428 fdd_ids=1501
+[wrote] ours/results/emotion_displacement.csv
+  neutral    | mouth(lve)=0.0000 mm | upper(fdd)=0.0000 mm | full=0.0000 mm | max=0.0000 mm
+  happy      | mouth(lve)=4.5644 mm | upper(fdd)=0.9472 mm | full=1.1031 mm | max=6.8651 mm
+  sad        | mouth(lve)=3.1725 mm | upper(fdd)=1.2315 mm | full=1.1071 mm | max=4.7063 mm
+  surprised  | mouth(lve)=1.9837 mm | upper(fdd)=0.4887 mm | full=0.5205 mm | max=3.2675 mm
+  fear       | mouth(lve)=2.1223 mm | upper(fdd)=0.4132 mm | full=0.5236 mm | max=2.9447 mm
+  disgusted  | mouth(lve)=5.4292 mm | upper(fdd)=2.0530 mm | full=1.8268 mm | max=8.8257 mm
+  angry      | mouth(lve)=3.2893 mm | upper(fdd)=1.2638 mm | full=1.0921 mm | max=7.2563 mm
+  contempt   | mouth(lve)=3.4890 mm | upper(fdd)=1.4896 mm | full=1.2762 mm | max=5.6062 mm
+[wrote] ours/results/displacement_heatmaps.png
+[skip] ours/runs/diversity_row/happy_high already has 3 npy file(s)
+[diversity] T=0.2 3 takes | mean exp+jaw MAD=0.07581 | mean 3D vertex pairwise diff=0.3394 mm
+[wrote] ours/results/diversity_row.png
+[skip] ours/results/diversity_3takes.mp4 already exists

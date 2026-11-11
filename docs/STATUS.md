@@ -219,3 +219,71 @@ Branch: `colab-inference-fixes`
   - Fixed in `ours/app/client.py` by inspecting `Client.__init__` parameters (`token` in `2.x`, `hf_token` in `1.x`). Note also `out.mkdir(exist_ok=True)` in `client.py` requires parent directories to already exist when passing nested `--out` paths (`client_outputs` was created beforehand).
 - **Open questions:**
   - Note `pip install gradio` downgraded `pillow` from `13.0.0` to `12.3.0` (`ours/space/requirements.txt` does not pin `gradio` or `gradio_client`, so `HF Space` will also install `gradio_client>=2.x` where the `client.py` patch prevents the `TypeError`).
+
+---
+
+## 2026-11-11 00:13:42 EST — TASK 2: Controlled comparisons (`ours/make_comparisons.py`)
+
+- **Files added or changed:**
+  - Modified `.gitignore` (added `ours/runs/` under Runtime Inference I/O Directories)
+  - Modified `docs/STATUS.md` (this entry)
+  - Added `ours/make_comparisons.py`
+  - Added `ours/results/emotion_grid.png` (`1.5M`), `ours/results/intensity_row.png` (`1.6M`), `ours/results/displacement_heatmaps.png` (`1.2M`), `ours/results/diversity_row.png` (`570K`), `ours/results/emotion_displacement.csv` (`455B`)
+  - Added `ours/logs/make_comparisons.txt`, `ours/logs/make_comparisons_rerender.txt`
+  - Generated locally (ignored by `.gitignore`): `ours/results/diversity_3takes.mp4` (`1.7M`, `1344x448`, `198` frames, `7.920000` s with audio), isolated `.npy` runs under `ours/runs/{emotion_grid,intensity_row,diversity_row}/`, and `ours/runs/neutral_audio/neutral.wav`
+- **Exact commands run:**
+  ```bash
+  /mnt/SHARED/ProbTalk3D/.venv/bin/python -u ours/make_comparisons.py > ours/logs/make_comparisons.txt 2>&1
+  # After tightening 1-row grid header spacing in save_grid:
+  /mnt/SHARED/ProbTalk3D/.venv/bin/python -u ours/make_comparisons.py > ours/logs/make_comparisons_rerender.txt 2>&1
+  ffprobe -v error -show_entries stream=codec_type,width,height,nb_frames,duration -of default=nw=1 ours/results/diversity_3takes.mp4
+  ```
+- **Key output lines:**
+  From `ours/logs/make_comparisons.txt` and `ours/logs/make_comparisons_rerender.txt`:
+  ```
+  [frame] auto-selected open-mouth frame 170/197 (mean jaw_x=0.1866 rad; happy jaw_x=0.1597, surprised jaw_x=0.1962)
+  [regions] lve_ids=428 fdd_ids=1501
+  [wrote] ours/results/emotion_displacement.csv
+    neutral    | mouth(lve)=0.0000 mm | upper(fdd)=0.0000 mm | full=0.0000 mm | max=0.0000 mm
+    happy      | mouth(lve)=4.5644 mm | upper(fdd)=0.9472 mm | full=1.1031 mm | max=6.8651 mm
+    sad        | mouth(lve)=3.1725 mm | upper(fdd)=1.2315 mm | full=1.1071 mm | max=4.7063 mm
+    surprised  | mouth(lve)=1.9837 mm | upper(fdd)=0.4887 mm | full=0.5205 mm | max=3.2675 mm
+    fear       | mouth(lve)=2.1223 mm | upper(fdd)=0.4132 mm | full=0.5236 mm | max=2.9447 mm
+    disgusted  | mouth(lve)=5.4292 mm | upper(fdd)=2.0530 mm | full=1.8268 mm | max=8.8257 mm
+    angry      | mouth(lve)=3.2893 mm | upper(fdd)=1.2638 mm | full=1.0921 mm | max=7.2563 mm
+    contempt   | mouth(lve)=3.4890 mm | upper(fdd)=1.4896 mm | full=1.2762 mm | max=5.6062 mm
+  [diversity] T=0.2 3 takes | mean exp+jaw MAD=0.07581 | mean 3D vertex pairwise diff=0.3394 mm
+  [wrote] ours/results/diversity_3takes.mp4 frames=198 elapsed=84.46 s
+  ```
+  `ours/results/emotion_displacement.csv`:
+  ```csv
+  emotion,speaker,intensity,mouth_lve_mm,upper_face_fdd_mm,full_face_mm,max_vertex_mm
+  neutral,M009,high,0.0000,0.0000,0.0000,0.0000
+  happy,M009,high,4.5644,0.9472,1.1031,6.8651
+  sad,M009,high,3.1725,1.2315,1.1071,4.7063
+  surprised,M009,high,1.9837,0.4887,0.5205,3.2675
+  fear,M009,high,2.1223,0.4132,0.5236,2.9447
+  disgusted,M009,high,5.4292,2.0530,1.8268,8.8257
+  angry,M009,high,3.2893,1.2638,1.0921,7.2563
+  contempt,M009,high,3.4890,1.4896,1.2762,5.6062
+  ```
+  From `ffprobe` on `ours/results/diversity_3takes.mp4`:
+  ```
+  codec_type=video
+  width=1344
+  height=448
+  duration=7.920000
+  nb_frames=198
+  codec_type=audio
+  duration=7.872000
+  nb_frames=124
+  ```
+- **What worked:**
+  - All 18 isolated `generation.py` calls (`8` emotions, `9` emotion×intensity combinations, `1` `3`-take stochastic run) used explicit `id=["M009"]`, `emotion=[...]`, `intensity=[...]` overrides on `results/generation/test_audio/neutral.wav` (`7.941` s, `198` frames) and moved outputs into separate folders under `ours/runs/`.
+  - Auto-selected open-mouth frame `170/197` (`mean jaw_x=0.1866 rad`) and rendered all 4 figures cleanly (`emotion_grid.png`, `intensity_row.png`, `displacement_heatmaps.png` with shared `0–8.83 mm` colorbar on `verts_neu[170]`, and `diversity_row.png`) plus `diversity_3takes.mp4` (`1344x448`, 3 side-by-side panels).
+  - Displacement metrics show `disgusted` produces the largest shift from neutral (`5.4292 mm` mouth `lve.txt`, `2.0530 mm` upper face `fdd.txt`, `8.8257 mm` max), followed by `happy` around the mouth (`4.5644 mm`) and `contempt`/`angry` (`3.4890 mm` / `3.2893 mm` mouth, `1.4896 mm` / `1.2638 mm` upper face).
+  - Three stochastic takes (`happy`, `high`, `T=0.2`) differ measurably (`exp+jaw MAD=0.07581`, `mean 3D vertex pairwise diff=0.3394 mm`).
+- **What failed:**
+  - Initial `diversity_row.png` clipped the single-row suptitle against the top of the tiles; fixed `save_grid` header sizing in `ours/make_comparisons.py` and re-verified all PNGs visually.
+- **Open questions:**
+  - In Task 2(a) we passed explicit `intensity=[2]` for all 8 emotions including `neutral` (`M009_x_0_2`) to keep every variable fixed except `emotion`; note in `MEAD` ground truth `neutral` only has intensity level `0` (so `ours/app/engine.py` forces `ints=0` for `neutral`). Also `datasets/regions/lve.txt` (`428` vertices) includes some indices above `3930` as distributed by the authors.
