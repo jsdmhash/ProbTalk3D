@@ -8,6 +8,7 @@ Space) over the network and saves the returned video and FLAME parameters.
 For a private Space, set HF_TOKEN in the environment.
 """
 import argparse
+import inspect
 import json
 import os
 import shutil
@@ -30,7 +31,8 @@ def main():
     ap.add_argument("--out", default="client_outputs")
     a = ap.parse_args()
 
-    client = Client(a.server, hf_token=os.environ.get("HF_TOKEN"))
+    token_arg = "token" if "token" in inspect.signature(Client.__init__).parameters else "hf_token"
+    client = Client(a.server, **{token_arg: os.environ.get("HF_TOKEN")})
     t0 = time.time()
     video, npy, info = client.predict(handle_file(a.wav), a.speaker, a.emotion, a.intensity,
                                       a.temperature, not a.deterministic, a.takes, api_name="/generate")

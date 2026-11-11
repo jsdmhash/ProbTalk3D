@@ -1,0 +1,16 @@
+Loaded as API: http://127.0.0.1:7860/
+{
+  "style_key": "M009_x_1_1",
+  "frames": 144,
+  "fps": 25,
+  "takes": 3,
+  "temperature": 0.2,
+  "sampling": true,
+  "device": "cpu",
+  "mean_pairwise_difference": 0.06603,
+  "audio_seconds": 5.78,
+  "generate_seconds": 2.18,
+  "render_seconds": 72.97,
+  "round_trip_seconds": 75.3
+}
+saved to /mnt/SHARED/ProbTalk3D/client_outputs/takes3
