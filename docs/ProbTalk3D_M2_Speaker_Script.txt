@@ -1,0 +1,224 @@
+================================================================================
+ProbTalk3D — Milestone 2 Colab Replication Presentation Deck
+Speaker Script & Cue Sheet (15 Slides · ~8-10 Minutes Total)
+Split: First Half for Sruthi (Slides 1-8) · Second Half for Jyothi (Slides 9-15)
+Course: ITCS 6166 Generative AI as a Service · Fall 2026 · UNC Charlotte
+================================================================================
+
+================================================================================
+PART 1: SRUTHI (Slides 1 through 8)
+================================================================================
+
+--------------------------------------------------------------------------------
+Slide 1: Title Slide
+Speaker: Sruthi
+--------------------------------------------------------------------------------
+👉 [SLIDE CUE: Title screen up]
+🗣️ WHAT TO SAY:
+• "Hello everyone! Today, Jyothi and I are presenting Milestone 2 of our project on ProbTalk3D—a probabilistic speech-driven 3D facial animation model."
+• "In Milestone 1, we deconstructed the architecture on paper. Today, for Milestone 2, we replicated the pipeline in Google Colab using the authors' real pretrained weights, proved the paper's core claims, and built a standalone 3D video renderer."
+• "I will present the first half covering our setup, fixes, and initial verification, and then Jyothi will take over for the mathematical deep dive, visual outputs, interactive tools, and future service roadmap."
+🎯 KEY TAKEAWAY: Real pretrained weights running in Colab; paper claims verified.
+
+--------------------------------------------------------------------------------
+Slide 2: Where We Are (Project Status & Roadmap)
+Speaker: Sruthi
+--------------------------------------------------------------------------------
+👉 [SLIDE CUE: Point to Milestone 2 card in the center]
+🗣️ WHAT TO SAY:
+• "Milestone 0 was paper selection. Milestone 1 was our architecture code review."
+• "For Milestone 2, our goal was end-to-end inference replication:
+  - We ran real weights in Google Colab on a Tesla T4 GPU.
+  - We resolved 3 modern library compatibility issues with Python 3.13 and PyTorch 2.11.
+  - We mathematically confirmed non-determinism and monotonic temperature scaling.
+  - And we built a standalone 3D renderer that outputs full MP4 video with synchronized audio."
+• "Next is Milestone 3: turning this into a live interactive web service on Hugging Face Spaces."
+🎯 KEY TAKEAWAY: M0 and M1 complete; M2 replicated with real outputs; M3 next.
+
+--------------------------------------------------------------------------------
+Slide 3: The Model Architecture
+Speaker: Sruthi
+--------------------------------------------------------------------------------
+👉 [SLIDE CUE: Point to the 3-step pipeline across the diagram]
+🗣️ WHAT TO SAY:
+• "ProbTalk3D turns raw speech into a 3D animated human face in three main stages:
+  1. Speech Feature Extraction: HuBERT extracts 768 acoustic features at 50 fps from 16 kHz raw audio, downsampled to 25 fps. Emotion, intensity, and speaker ID vectors are injected here.
+  2. VQ-VAE Motion Prior: Stage 1 trained a discrete dictionary of 256 realistic facial pose vectors from real 3D scans. Stage 2 maps speech directly into this codebook.
+  3. Probabilistic Sampling: Instead of taking the nearest entry with argmin, it applies a temperature-scaled softmax and samples probabilistically using torch.multinomial. That is what gives it organic variety."
+🎯 KEY TAKEAWAY: Speech features map to a 256-code dictionary sampled probabilistically.
+
+--------------------------------------------------------------------------------
+Slide 4: Setup & Environment (Modern Google Colab)
+Speaker: Sruthi
+--------------------------------------------------------------------------------
+👉 [SLIDE CUE: Point to the specifications and streamlined package card]
+🗣️ WHAT TO SAY:
+• "We ran our experiments in Google Colab on a Tesla T4 GPU with 15 GB of VRAM."
+• "Modern software stack: Python 3.13, PyTorch 2.11, CUDA 13.0, and Transformers 5.20."
+• "We downloaded the authors' 2.5 GB official pretrained checkpoints for Stage 1 and Stage 2."
+• "Setup strategy: The authors' original 2023 requirements file had 182 legacy packages that break immediately on Python 3.13. We isolated precisely 38 essential inference packages, allowing clean installation via pre-built wheels in under 2 minutes."
+• "Everything is frozen into requirements_colab.txt for 100% reproducible execution."
+🎯 KEY TAKEAWAY: Modern Colab environment running 38 clean packages in under 2 minutes.
+
+--------------------------------------------------------------------------------
+Slide 5: Three Compatibility Fixes Applied
+Speaker: Sruthi
+--------------------------------------------------------------------------------
+👉 [SLIDE CUE: Walk across the 3 patch cards]
+🗣️ WHAT TO SAY:
+• "To make the 2023 code run on today's modern libraries, we applied three minimal patches, all marked with # PATCH:
+  - Fix 1: HuBERT Import: The authors vendored legacy HuBERT code importing 'transformers.deepspeed', which modern Hugging Face removed. We added a fallback to import HubertModel directly from transformers.
+  - Fix 2: Weight-Norm Remapping: PyTorch 2.2 deprecated weight-norm and renamed internal dictionary keys. We added dynamic key remapping in the checkpoint loader to bridge old and modern keys.
+  - Fix 3: Safe Checkpoint Loading: PyTorch 2.6 defaults to weights_only=True, which blocks OmegaConf config objects in the checkpoint. We passed weights_only=False with checksum verification."
+• "None of these alter the authors' neural network architecture or math."
+🎯 KEY TAKEAWAY: 3 minimal compatibility patches; 0 architectural changes.
+
+--------------------------------------------------------------------------------
+Slide 6: Inference Verification: All 8 Test Clips
+Speaker: Sruthi
+--------------------------------------------------------------------------------
+👉 [SLIDE CUE: Point to the verification table and timing columns]
+🗣️ WHAT TO SAY:
+• "We verified end-to-end inference across all 8 provided test audio clips in demo_input."
+• "Two crucial findings:
+  1. Consistent Tensor Layout: Every clip generates a 3D matrix of shape (1, T, 403)—300 skull shape, 100 expression, and 3 jaw parameters.
+  2. Frame-Perfect Duration: The frame count T matches audio duration at exactly 25.0 frames per second. For example, happy.wav (5.76s audio) produced 144 frames—an exact 5.76s video match, with an average timing error of only 0.022 seconds."
+• "Inference speed: Takes only 2.4 seconds per clip on Colab GPU—faster than real-time!"
+🎯 KEY TAKEAWAY: All 8 clips produce exact (1, T, 403) tensors at 25 fps in 2.4 seconds.
+
+--------------------------------------------------------------------------------
+Slide 7: Paper Claim 1: Non-Determinism Verified
+Speaker: Sruthi
+--------------------------------------------------------------------------------
+👉 [SLIDE CUE: Point to the pairwise comparison numbers on the left card]
+🗣️ WHAT TO SAY:
+• "Here is where we test the paper's central scientific claim: non-determinism."
+• "Conventional talking-head models are deterministic: give them the same speech twice, and they generate the exact same robotic motion every time."
+• "ProbTalk3D claims each take is naturally diverse and unique."
+• "Our Colab test: We ran happy.wav 3 independent times with identical audio, speaker M009, and emotion happy:
+  - Run 1 vs Run 2 Mean Difference: 0.0167
+  - Run 1 vs Run 3 Mean Difference: 0.0168
+  - Run 2 vs Run 3 Mean Difference: 0.0166"
+• "The numbers confirm: every run generates distinct facial animation from the exact same input speech."
+🎯 KEY TAKEAWAY: Outputs differ mathematically across runs (mean diff = 0.0167).
+
+--------------------------------------------------------------------------------
+Slide 8: Sanity Check: Deterministic Mode Verified
+Speaker: Sruthi
+--------------------------------------------------------------------------------
+👉 [SLIDE CUE: Point to the 0.000000 result and the code toggle]
+🗣️ WHAT TO SAY:
+• "As a scientific sanity check, we asked: Is this variation genuinely from the model's codebook, or is it just random GPU noise?"
+• "To test this, we set sample: false in the config, which replaces probabilistic sampling with deterministic argmin (nearest neighbor)."
+• "Result: When sample=false, the pairwise difference across all runs is 0.000000. All 58,032 output values are 100% bitwise identical!"
+• "This proves that randomness is completely controlled by the codebook sampling toggle."
+• "Now, I will hand over to Jyothi to walk you through our temperature sweep, the underlying code implementation, our diverse visual output gallery, our interactive demo tools, and our live video preview!"
+🎯 KEY TAKEAWAY: Randomness is 100% controlled by the sample flag. Handoff to Jyothi.
+
+
+================================================================================
+PART 2: JYOTHI (Slides 9 through 15)
+================================================================================
+
+--------------------------------------------------------------------------------
+Slide 9: Paper Claim 2: Temperature Sweep
+Speaker: Jyothi
+--------------------------------------------------------------------------------
+👉 [SLIDE CUE: Point to the embedded temperature sweep plot]
+🗣️ WHAT TO SAY:
+• "Thank you, Sruthi! Continuing with the paper's second major claim: temperature control."
+• "The authors claim temperature T acts as a direct diversity dial. To verify this, we swept temperatures from 0.05 to 1.0 across 100 forward passes:
+  - At T = 0.05: Pairwise diff is 0.00818 (subtle, conservative motion).
+  - At T = 0.10 (paper default): Pairwise diff is 0.01671 (balanced diversity).
+  - At T = 0.30: Pairwise diff is 0.02492.
+  - At T = 0.50: Pairwise diff is 0.03185.
+  - At T = 1.00: Pairwise diff is 0.03845 (maximum expressive divergence, 4.7x higher)."
+• "Key insight: The divergence increases strictly monotonically. This proves temperature functions as an intuitive knob to control animation expressiveness."
+🎯 KEY TAKEAWAY: Diversity increases monotonically with temperature (0.00818 → 0.03845).
+
+--------------------------------------------------------------------------------
+Slide 10: Algorithm & Implementation (VectorQuantizer Deep Dive)
+Speaker: Jyothi
+--------------------------------------------------------------------------------
+👉 [SLIDE CUE: Point to the math on left and code block on right]
+🗣️ WHAT TO SAY:
+• "Here is the exact math and code that makes this work inside vector_quantizer.py:
+  1. Euclidean Distance: Computes distance between speech latent vector and all 256 codebook entries.
+  2. Softmax Scaling: Converts negative distances to probabilities scaled by temperature:
+     P(e_j) = exp(-d_ij / T) divided by sum of exp(-d_ik / T).
+  3. Multinomial Sampling: torch.multinomial samples the discrete pose index from this distribution."
+• "Notice the clean toggle logic: If sample is True, it draws from the multinomial distribution; if sample is False, it falls back to torch.argmin."
+🎯 KEY TAKEAWAY: 5 lines of PyTorch code cleanly implement temperature-scaled multinomial sampling.
+
+--------------------------------------------------------------------------------
+Slide 11: Different Outputs Showcase (8 Emotions & Diversity Takes)
+Speaker: Jyothi
+--------------------------------------------------------------------------------
+👉 [SLIDE CUE: Point to Panel A (left) then Panel B (right)]
+🗣️ WHAT TO SAY:
+• "Now, let's look at what these numbers actually look like as real 3D faces!"
+• "Panel A on the left shows our Emotion Control experiment:
+  - We kept the speech audio and speaker identical, but dialed through all 8 emotions.
+  - Look at the geometry: Happy shows lifted cheek apples and a broad smile; Angry contracts the brow and tightens the jaw; Surprised arches the eyebrows and drops the jaw open; Sad pulls down the corners of the lips."
+• "Panel B on the right shows our Non-Deterministic Diversity Takes:
+  - Here, all inputs were completely frozen—same audio, same happy emotion, same speaker M009.
+  - Yet Take 1, Take 2, and Take 3 produce visibly distinct conversational micro-expressions!"
+• "HIGHLIGHT THIS: We didn't just pre-render these statically. We engineered an interactive terminal tool—interactive_generate.py. It lets anyone dynamically feed in any audio file, select any emotion, choose the intensity, pick from 32 distinct human faces, and dial the temperature knob on demand!"
+🎯 KEY TAKEAWAY: Visual proof of 8 emotion expressions and 3 distinct non-deterministic takes; fully controllable via our interactive CLI.
+
+--------------------------------------------------------------------------------
+Slide 12: Visual Verification & Video Preview
+Speaker: Jyothi
+--------------------------------------------------------------------------------
+👉 [SLIDE CUE: Click the embedded video to play with audio]
+🗣️ WHAT TO SAY:
+• "On this slide, we have our live preview video embedded directly into PowerPoint—let's play it."
+• [Play video for ~3 seconds]
+• "Notice how the 3D jaw opens and closes naturally with phonemes, lips seal on consonants, and eyebrows move expressively with speech rhythm."
+• "Zero Blender Dependency: The authors required Blender 2.9+, which is notoriously hard to run headless in the cloud. We built a pure-Python renderer using PyTorch, the FLAME face model, and OpenCV/Matplotlib."
+• "It passes 403 parameters into generic_model.pkl, extracts 5,023 3D mesh vertices, calculates surface normals, applies directional lighting, and muxes speech audio with FFmpeg—rendering 144 frames in just 19 seconds!"
+🎯 KEY TAKEAWAY: Full 3D animated video with synchronized audio rendered without Blender.
+
+--------------------------------------------------------------------------------
+Slide 13: Milestone 2 Deliverables & Artifacts
+Speaker: Jyothi
+--------------------------------------------------------------------------------
+👉 [SLIDE CUE: Point to the 3 cards at top, then the Bottom Highlight Banner]
+🗣️ WHAT TO SAY:
+• "We have package-delivered four core artifacts for Milestone 2:
+  1. Google Colab Notebook: notebooks/ProbTalk.ipynb with complete runnable cells and interactive video playback.
+  2. Frozen Environment: requirements_colab.txt with precisely 38 pinned dependencies.
+  3. Git Branch: colab-inference-fixes with our 3 compatibility patches clearly marked with # PATCH.
+  4. Standalone Renderer: render_preview.py for Blender-free 3D video generation."
+• "[Point to Bottom Banner: Live Execution Tools]
+  - Most importantly, we engineered two ready-to-run execution tools:
+  - run_demo.py: A fast 33-second automated demo that executes inference and rendering in one step.
+  - interactive_generate.py: An interactive tool prompting for custom audio, any of 8 emotions, 3 intensities, 32 characters, and temperature, saving directly to interactive_videos/."
+🎯 KEY TAKEAWAY: 4 reproducible deliverables + 2 live demo tools ready for on-demand demonstration.
+
+--------------------------------------------------------------------------------
+Slide 14: Scientific Integrity & Scope
+Speaker: Jyothi
+--------------------------------------------------------------------------------
+👉 [SLIDE CUE: Compare left green card vs right amber card]
+🗣️ WHAT TO SAY:
+• "As required by the course guidelines, we maintain strict scientific integrity by clearly stating what was verified versus what remains outside our scope:
+  - What We Verified (100% Confirmed): Real pretrained checkpoints, (1, T, 403) tensor shapes, 25 fps synchronization, non-determinism, deterministic sanity check, temperature monotonicity, and visual lipsync.
+  - What Remains Unverified: We did not train the model from scratch (that required 100+ GPU-hours on the MEAD dataset); we did not compute formal LSE-C or FDD benchmark metrics against ground-truth video; and we tested batch size 1 rather than multi-user concurrency."
+🎯 KEY TAKEAWAY: Honest distinction between verified replication results and training/benchmark boundaries.
+
+--------------------------------------------------------------------------------
+Slide 15: Looking Forward: Milestone 3 Plan & Q&A
+Speaker: Jyothi
+--------------------------------------------------------------------------------
+👉 [SLIDE CUE: Point to the 4 Milestone 3 deployment cards]
+🗣️ WHAT TO SAY:
+• "Looking ahead to Milestone 3: We will transition ProbTalk3D from a notebook experiment into an interactive GenAI cloud service:
+  1. Interactive Gradio GUI: Audio upload and microphone recording, dropdowns for all 8 emotions and 32 characters, temperature slider, and embedded video preview.
+  2. Hugging Face Spaces Backend: Hosted on HF Spaces free-tier CPU.
+  3. Python Client SDK: A lightweight probtalk-client package for remote API inference.
+  4. Timeline: GUI prototype by Nov 2, Spaces deployment by Nov 8, client SDK and final testing by Nov 15."
+• "[Live Demo Invitation]:
+  - 'Thank you all for listening! We have our interactive generator ready right here on our laptop. If anyone in the room would like to pick a custom voice line, an emotion, or a character identity, we can run it right now during Q&A!'"
+🎯 KEY TAKEAWAY: Clear path to Milestone 3 Gradio deployment on HF Spaces; open floor for Q&A with live interactive demo.
+================================================================================

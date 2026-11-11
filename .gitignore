@@ -1,15 +1,39 @@
-.idea/
-model_weights/
-**/__pycache__/
+# ==============================================================================
+# ProbTalk3D .gitignore — Clean Directory Segregation
+# ==============================================================================
 
+# 1. Environments & Editor Artifacts
+.idea/
+.vscode/
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+**/__pycache__/
+__pycache__/
+
+# 2. Large Pretrained Weights & Checkpoints (Host externally)
 model_weights/
 weights.zip
-results/generation/vqvae_pred/
-*.npy
+*.ckpt
+*.pt
+*.pth
+
+# 3. Media Libraries & Rendered Video Outputs
+demo_videos/
+interactive_videos/
 *.mp4
-*.log
-__pycache__/
-.ipynb_checkpoints/
+*.avi
+*.npy
 /*.png
+
+# 4. Experiment Results & Scratch Logs
+colab_results/
 logs.*
+*.log
+
+# 5. Runtime Inference I/O Directories
+demo_input/
+dynamic_input/
 one_audio/
+results/generation/vqvae_pred/
