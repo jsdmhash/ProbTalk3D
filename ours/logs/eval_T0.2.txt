@@ -1,0 +1,892 @@
+/mnt/SHARED/ProbTalk3D/ours/eval/run_eval.py:11: FutureWarning: In the future `np.object` will be defined as the corresponding NumPy scalar.
+  if not hasattr(np, n):
+/mnt/SHARED/ProbTalk3D/ours/eval/run_eval.py:11: FutureWarning: In the future `np.str` will be defined as the corresponding NumPy scalar.
+  if not hasattr(np, n):
+/mnt/SHARED/ProbTalk3D/.venv/lib64/python3.13/site-packages/sklearn/base.py:380: InconsistentVersionWarning: Trying to unpickle estimator MinMaxScaler from version 1.1.3 when using version 1.6.1. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:
+https://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations
+  warnings.warn(
+[11/17/26 01:22:41] INFO     Sample script. The outputs will be evaluation.py:58
+                             stored in:                                         
+                    INFO     /mnt/SHARED/ProbTalk3D/results/eva evaluation.py:73
+                             luation/vqvae_pred/stage_2/0.2_mul                 
+                             ti                                                 
+Seed set to 1234
+                    INFO     Loading data module                evaluation.py:79
+The number of loaded data pair is: 2
+Number of features of a motion frame: 53
+[11/17/26 01:22:44] INFO     Data module 'MEAD' loaded          evaluation.py:81
+                    INFO     Loading model                      evaluation.py:83
+                    INFO     /mnt/SHARED/ProbTalk3D/model_weigh evaluation.py:85
+                             ts/ProbTalk3D/stage_2/lightning_lo                 
+                             gs/version_0/checkpoints/last.ckpt                 
+[11/17/26 01:22:45] INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/agent-ha                
+                             rnesses "HTTP/1.1 200 OK"                          
+                    INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/models/f                
+                             acebook/hubert-xlarge-ls960-ft/revi                
+                             sion/main "HTTP/1.1 200 OK"                        
+                    INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/models/f                
+                             acebook/hubert-xlarge-ls960-ft/tree                
+                             /main/additional_chat_templates?rec                
+                             ursive=false&expand=false "HTTP/1.1                
+                             404 Not Found"                                     
+                    INFO     HTTP Request: HEAD                  _client.py:1025
+                             https://huggingface.co/facebook/hub                
+                             ert-xlarge-ls960-ft/resolve/86a09e6                
+                             7e0c8d074533992379242405825516eca/p                
+                             rocessor_config.json "HTTP/1.1 404                 
+                             Not Found"                                         
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+                    WARNING  Warning: You are sending               _http.py:993
+                             unauthenticated requests to the HF                 
+                             Hub. Please set a HF_TOKEN to enable               
+                             higher rate limits and faster                      
+                             downloads.                                         
+                    INFO     HTTP Request: HEAD                  _client.py:1025
+                             https://huggingface.co/facebook/hub                
+                             ert-xlarge-ls960-ft/resolve/86a09e6                
+                             7e0c8d074533992379242405825516eca/c                
+                             hat_template.json "HTTP/1.1 404 Not                
+                             Found"                                             
+                    INFO     HTTP Request: HEAD                  _client.py:1025
+                             https://huggingface.co/facebook/hub                
+                             ert-xlarge-ls960-ft/resolve/86a09e6                
+                             7e0c8d074533992379242405825516eca/c                
+                             hat_template.jinja "HTTP/1.1 404                   
+                             Not Found"                                         
+                    INFO     HTTP Request: HEAD                  _client.py:1025
+                             https://huggingface.co/facebook/hub                
+                             ert-xlarge-ls960-ft/resolve/86a09e6                
+                             7e0c8d074533992379242405825516eca/a                
+                             udio_tokenizer_config.json                         
+                             "HTTP/1.1 404 Not Found"                           
+                    INFO     HTTP Request: HEAD                  _client.py:1025
+                             https://huggingface.co/facebook/hub                
+                             ert-xlarge-ls960-ft/resolve/86a09e6                
+                             7e0c8d074533992379242405825516eca/p                
+                             reprocessor_config.json "HTTP/1.1                  
+                             307 Temporary Redirect"                            
+                    INFO     HTTP Request: HEAD                  _client.py:1025
+                             https://huggingface.co/api/resolve-                
+                             cache/models/facebook/hubert-xlarge                
+                             -ls960-ft/86a09e67e0c8d074533992379                
+                             242405825516eca/preprocessor_config                
+                             .json?%2Ffacebook%2Fhubert-xlarge-l                
+                             s960-ft%2Fresolve%2F86a09e67e0c8d07                
+                             4533992379242405825516eca%2Fpreproc                
+                             essor_config.json=&etag=%2236ebe8b7                
+                             c1cc967b3059f0494ae8a1069dd67655%22                
+                              "HTTP/1.1 200 OK"                                 
+                    INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/resolve-                
+                             cache/models/facebook/hubert-xlarge                
+                             -ls960-ft/86a09e67e0c8d074533992379                
+                             242405825516eca/preprocessor_config                
+                             .json?%2Ffacebook%2Fhubert-xlarge-l                
+                             s960-ft%2Fresolve%2F86a09e67e0c8d07                
+                             4533992379242405825516eca%2Fpreproc                
+                             essor_config.json=&etag=%2236ebe8b7                
+                             c1cc967b3059f0494ae8a1069dd67655%22                
+                              "HTTP/1.1 200 OK"                                 
+                    INFO     HTTP Request: HEAD                  _client.py:1025
+                             https://huggingface.co/facebook/hub                
+                             ert-xlarge-ls960-ft/resolve/86a09e6                
+                             7e0c8d074533992379242405825516eca/c                
+                             onfig.json "HTTP/1.1 307 Temporary                 
+                             Redirect"                                          
+                    INFO     HTTP Request: HEAD                  _client.py:1025
+                             https://huggingface.co/api/resolve-                
+                             cache/models/facebook/hubert-xlarge                
+                             -ls960-ft/86a09e67e0c8d074533992379                
+                             242405825516eca/config.json?%2Fface                
+                             book%2Fhubert-xlarge-ls960-ft%2Fres                
+                             olve%2F86a09e67e0c8d074533992379242                
+                             405825516eca%2Fconfig.json=&etag=%2                
+                             2a522d917e21730d400bfc68be9fd9df6ee                
+                             f0c57c%22 "HTTP/1.1 200 OK"                        
+                    INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/resolve-                
+                             cache/models/facebook/hubert-xlarge                
+                             -ls960-ft/86a09e67e0c8d074533992379                
+                             242405825516eca/config.json?%2Fface                
+                             book%2Fhubert-xlarge-ls960-ft%2Fres                
+                             olve%2F86a09e67e0c8d074533992379242                
+                             405825516eca%2Fconfig.json=&etag=%2                
+                             2a522d917e21730d400bfc68be9fd9df6ee                
+                             f0c57c%22 "HTTP/1.1 200 OK"                        
+                    INFO     HTTP Request: HEAD                  _client.py:1025
+                             https://huggingface.co/facebook/hub                
+                             ert-xlarge-ls960-ft/resolve/86a09e6                
+                             7e0c8d074533992379242405825516eca/t                
+                             okenizer_config.json "HTTP/1.1 307                 
+                             Temporary Redirect"                                
+                    INFO     HTTP Request: HEAD                  _client.py:1025
+                             https://huggingface.co/api/resolve-                
+                             cache/models/facebook/hubert-xlarge                
+                             -ls960-ft/86a09e67e0c8d074533992379                
+                             242405825516eca/tokenizer_config.js                
+                             on?%2Ffacebook%2Fhubert-xlarge-ls96                
+                             0-ft%2Fresolve%2F86a09e67e0c8d07453                
+                             3992379242405825516eca%2Ftokenizer_                
+                             config.json=&etag=%2243772fe82c5166                
+                             17b389124d359003795a06ce95%22                      
+                             "HTTP/1.1 200 OK"                                  
+                    INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/resolve-                
+                             cache/models/facebook/hubert-xlarge                
+                             -ls960-ft/86a09e67e0c8d074533992379                
+                             242405825516eca/tokenizer_config.js                
+                             on?%2Ffacebook%2Fhubert-xlarge-ls96                
+                             0-ft%2Fresolve%2F86a09e67e0c8d07453                
+                             3992379242405825516eca%2Ftokenizer_                
+                             config.json=&etag=%2243772fe82c5166                
+                             17b389124d359003795a06ce95%22                      
+                             "HTTP/1.1 200 OK"                                  
+                    INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/models/f                
+                             acebook/hubert-xlarge-ls960-ft/tree                
+                             /main/additional_chat_templates?rec                
+                             ursive=false&expand=false "HTTP/1.1                
+                             404 Not Found"                                     
+[11/17/26 01:22:46] INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/models/f                
+                             acebook/hubert-xlarge-ls960-ft/tree                
+                             /main?recursive=true&expand=false                  
+                             "HTTP/1.1 200 OK"                                  
+                    INFO     HTTP Request: HEAD                  _client.py:1025
+                             https://huggingface.co/facebook/hub                
+                             ert-xlarge-ls960-ft/resolve/86a09e6                
+                             7e0c8d074533992379242405825516eca/v                
+                             ocab.json "HTTP/1.1 307 Temporary                  
+                             Redirect"                                          
+                    INFO     HTTP Request: HEAD                  _client.py:1025
+                             https://huggingface.co/api/resolve-                
+                             cache/models/facebook/hubert-xlarge                
+                             -ls960-ft/86a09e67e0c8d074533992379                
+                             242405825516eca/vocab.json?%2Ffaceb                
+                             ook%2Fhubert-xlarge-ls960-ft%2Freso                
+                             lve%2F86a09e67e0c8d0745339923792424                
+                             05825516eca%2Fvocab.json=&etag=%22d                
+                             216837588b4b72401dd42e4f249aa68afc5                
+                             9e58%22 "HTTP/1.1 200 OK"                          
+                    INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/resolve-                
+                             cache/models/facebook/hubert-xlarge                
+                             -ls960-ft/86a09e67e0c8d074533992379                
+                             242405825516eca/vocab.json?%2Ffaceb                
+                             ook%2Fhubert-xlarge-ls960-ft%2Freso                
+                             lve%2F86a09e67e0c8d0745339923792424                
+                             05825516eca%2Fvocab.json=&etag=%22d                
+                             216837588b4b72401dd42e4f249aa68afc5                
+                             9e58%22 "HTTP/1.1 200 OK"                          
+                    INFO     HTTP Request: HEAD                  _client.py:1025
+                             https://huggingface.co/facebook/hub                
+                             ert-xlarge-ls960-ft/resolve/86a09e6                
+                             7e0c8d074533992379242405825516eca/a                
+                             dded_tokens.json "HTTP/1.1 404 Not                 
+                             Found"                                             
+                    INFO     HTTP Request: HEAD                  _client.py:1025
+                             https://huggingface.co/facebook/hub                
+                             ert-xlarge-ls960-ft/resolve/86a09e6                
+                             7e0c8d074533992379242405825516eca/s                
+                             pecial_tokens_map.json "HTTP/1.1                   
+                             307 Temporary Redirect"                            
+                    INFO     HTTP Request: HEAD                  _client.py:1025
+                             https://huggingface.co/api/resolve-                
+                             cache/models/facebook/hubert-xlarge                
+                             -ls960-ft/86a09e67e0c8d074533992379                
+                             242405825516eca/special_tokens_map.                
+                             json?%2Ffacebook%2Fhubert-xlarge-ls                
+                             960-ft%2Fresolve%2F86a09e67e0c8d074                
+                             533992379242405825516eca%2Fspecial_                
+                             tokens_map.json=&etag=%2225bc39604f                
+                             72700b3b8e10bd69bb2f227157edd1%22                  
+                             "HTTP/1.1 200 OK"                                  
+                    INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/resolve-                
+                             cache/models/facebook/hubert-xlarge                
+                             -ls960-ft/86a09e67e0c8d074533992379                
+                             242405825516eca/special_tokens_map.                
+                             json?%2Ffacebook%2Fhubert-xlarge-ls                
+                             960-ft%2Fresolve%2F86a09e67e0c8d074                
+                             533992379242405825516eca%2Fspecial_                
+                             tokens_map.json=&etag=%2225bc39604f                
+                             72700b3b8e10bd69bb2f227157edd1%22                  
+                             "HTTP/1.1 200 OK"                                  
+                    INFO     HTTP Request: HEAD                  _client.py:1025
+                             https://huggingface.co/facebook/hub                
+                             ert-xlarge-ls960-ft/resolve/86a09e6                
+                             7e0c8d074533992379242405825516eca/t                
+                             okenizer.json "HTTP/1.1 404 Not                    
+                             Found"                                             
+                    INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/models/f                
+                             acebook/hubert-base-ls960/revision/                
+                             main "HTTP/1.1 200 OK"                             
+                    INFO     HTTP Request: HEAD                  _client.py:1025
+                             https://huggingface.co/facebook/hub                
+                             ert-base-ls960/resolve/dba3bb02fda4                
+                             248b6e082697eee756de8fe8aa8a/config                
+                             .json "HTTP/1.1 307 Temporary                      
+                             Redirect"                                          
+                    INFO     HTTP Request: HEAD                  _client.py:1025
+                             https://huggingface.co/api/resolve-                
+                             cache/models/facebook/hubert-base-l                
+                             s960/dba3bb02fda4248b6e082697eee756                
+                             de8fe8aa8a/config.json?%2Ffacebook%                
+                             2Fhubert-base-ls960%2Fresolve%2Fdba                
+                             3bb02fda4248b6e082697eee756de8fe8aa                
+                             8a%2Fconfig.json=&etag=%225d89400e9                
+                             73a3e0330ca2f517e65d3231e44c762%22                 
+                             "HTTP/1.1 200 OK"                                  
+                    INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/resolve-                
+                             cache/models/facebook/hubert-base-l                
+                             s960/dba3bb02fda4248b6e082697eee756                
+                             de8fe8aa8a/config.json?%2Ffacebook%                
+                             2Fhubert-base-ls960%2Fresolve%2Fdba                
+                             3bb02fda4248b6e082697eee756de8fe8aa                
+                             8a%2Fconfig.json=&etag=%225d89400e9                
+                             73a3e0330ca2f517e65d3231e44c762%22                 
+                             "HTTP/1.1 200 OK"                                  
+                    INFO     HTTP Request: HEAD                  _client.py:1025
+                             https://huggingface.co/facebook/hub                
+                             ert-base-ls960/resolve/dba3bb02fda4                
+                             248b6e082697eee756de8fe8aa8a/model.                
+                             safetensors "HTTP/1.1 404 Not                      
+                             Found"                                             
+                    INFO     HTTP Request: HEAD                  _client.py:1025
+                             https://huggingface.co/facebook/hub                
+                             ert-base-ls960/resolve/dba3bb02fda4                
+                             248b6e082697eee756de8fe8aa8a/model.                
+                             safetensors.index.json "HTTP/1.1                   
+                             404 Not Found"                                     
+                    INFO     HTTP Request: HEAD                  _client.py:1025
+                             https://huggingface.co/facebook/hub                
+                             ert-base-ls960/resolve/dba3bb02fda4                
+                             248b6e082697eee756de8fe8aa8a/pytorc                
+                             h_model.bin "HTTP/1.1 302 Found"                   
+                    INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/models/f                
+                             acebook/hubert-base-ls960/xet-read-                
+                             token/dba3bb02fda4248b6e082697eee75                
+                             6de8fe8aa8a "HTTP/1.1 200 OK"                      
+[11/17/26 01:22:59] INFO     HTTP Request: HEAD                  _client.py:1025
+                             https://huggingface.co/facebook/hub                
+                             ert-base-ls960/resolve/main/model.s                
+                             afetensors "HTTP/1.1 404 Not Found"                
+                    INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/models/f                
+                             acebook/hubert-base-ls960 "HTTP/1.1                
+                             200 OK"                                            
+                    INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/models/f                
+                             acebook/hubert-base-ls960/commits/m                
+                             ain "HTTP/1.1 200 OK"                              
+                    INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/models/f                
+                             acebook/hubert-base-ls960/discussio                
+                             ns?p=0 "HTTP/1.1 200 OK"                           
+Loading weights:   0%|          | 0/211 [00:00<?, ?it/s]Loading weights: 100%|██████████| 211/211 [00:00<00:00, 15813.14it/s]
+                    INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/models/f                
+                             acebook/hubert-base-ls960/commits/r                
+                             efs%2Fpr%2F2 "HTTP/1.1 200 OK"                     
+[11/17/26 01:23:00] INFO     HTTP Request: HEAD                  _client.py:1025
+                             https://huggingface.co/facebook/hub                
+                             ert-base-ls960/resolve/refs%2Fpr%2F                
+                             2/model.safetensors.index.json                     
+                             "HTTP/1.1 404 Not Found"                           
+                    INFO     HTTP Request: HEAD                  _client.py:1025
+                             https://huggingface.co/facebook/hub                
+                             ert-base-ls960/resolve/refs%2Fpr%2F                
+                             2/model.safetensors "HTTP/1.1 302                  
+                             Found"                                             
+                    INFO     1. Audio feature extractor   model_vqvae_pred.py:31
+                             'HuBERT' loaded                                    
+                    INFO     HTTP Request: GET                   _client.py:1025
+                             https://huggingface.co/api/models/f                
+                             acebook/hubert-base-ls960/xet-read-                
+                             token/af46f65f540dc3ca7aa59f46c6c3d                
+                             5dbb4374fa8 "HTTP/1.1 200 OK"                      
+                    INFO     (1). Motion Encoder         model_vqvae_prior.py:24
+                             'transformer_encoder'                              
+                             loaded                                             
+                    INFO     (2). Motion Decoder         model_vqvae_prior.py:26
+                             'transformer_decoder'                              
+                             loaded                                             
+                    INFO     2. 'VQVAE Motion             model_vqvae_pred.py:44
+                             Autoencoder' loaded                                
+                    INFO     Model weights restored.                 tools.py:27
+                    INFO     Model in eval mode.                     tools.py:31
+                    INFO     3. 'Audio Encoder' loaded    model_vqvae_pred.py:59
+                    INFO     Model 'ProbTalk3D' loaded          evaluation.py:93
+device checking: cpu
+[11/17/26 01:23:02] INFO     Model weights restored.                 tools.py:27
+                    INFO     Model in eval mode.                     tools.py:31
+Loading MEAD test dataset ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:07
+The number of loaded data pair is: 478
+Number of features of a motion frame: 53
+Done sampling: M003_029_2_0 
+Done sampling: M003_029_2_1 
+Done sampling: M003_029_2_2 
+Done sampling: M003_029_3_0 
+Done sampling: M003_029_3_1 
+Done sampling: M003_029_3_2 
+Done sampling: M003_029_4_0 
+Done sampling: M003_029_4_1 
+Done sampling: M003_029_4_2 
+Done sampling: M003_029_5_0 
+Done sampling: M003_029_5_1 
+Done sampling: M003_029_5_2 
+Done sampling: M003_029_6_0 
+Done sampling: M003_029_6_1 
+Done sampling: M003_029_6_2 
+Done sampling: M003_029_7_0 
+Done sampling: M003_029_7_1 
+Done sampling: M003_029_7_2 
+Done sampling: M003_030_1_0 
+Done sampling: M003_030_1_1 
+Done sampling: M003_030_1_2 
+Done sampling: M003_030_2_0 
+Done sampling: M003_030_2_1 
+Done sampling: M003_030_2_2 
+Done sampling: M003_028_1_0 
+Done sampling: M003_028_1_1 
+Done sampling: M003_028_1_2 
+Done sampling: M003_028_2_0 
+Done sampling: M003_030_3_1 
+Done sampling: M003_030_3_2 
+Done sampling: M003_030_4_0 
+Done sampling: M003_030_4_1 
+Done sampling: M003_030_4_2 
+Done sampling: M003_030_5_0 
+Done sampling: M003_030_5_2 
+Done sampling: M003_030_6_0 
+Done sampling: M003_030_6_1 
+Done sampling: M003_030_6_2 
+Done sampling: M003_030_7_0 
+Done sampling: M003_028_2_2 
+Done sampling: M003_028_3_0 
+Done sampling: M003_028_3_1 
+Done sampling: M003_028_3_2 
+Done sampling: M003_028_4_0 
+Done sampling: M003_028_4_1 
+Done sampling: M003_028_4_2 
+Done sampling: M003_028_5_0 
+Done sampling: M003_028_5_1 
+Done sampling: M003_028_5_2 
+Done sampling: M003_028_6_0 
+Done sampling: M003_028_6_1 
+Done sampling: M003_028_6_2 
+Done sampling: M003_028_7_0 
+Done sampling: M003_028_7_1 
+Done sampling: M003_028_7_2 
+Done sampling: M003_029_1_0 
+Done sampling: M003_029_1_1 
+Done sampling: M003_037_0_0 
+Done sampling: M003_038_0_0 
+Done sampling: M003_039_0_0 
+Done sampling: M003_040_0_0 
+Done sampling: M003_028_2_1 
+Done sampling: M003_029_1_2 
+Done sampling: M003_030_3_0 
+Done sampling: M009_029_1_0 
+Done sampling: M009_029_1_2 
+Done sampling: M009_029_2_0 
+Done sampling: M009_029_2_1 
+Done sampling: M009_029_2_2 
+Done sampling: M009_029_3_2 
+Done sampling: M009_029_4_0 
+Done sampling: M009_029_4_2 
+Done sampling: M009_029_5_0 
+Done sampling: M009_029_5_1 
+Done sampling: M009_029_5_2 
+Done sampling: M009_029_6_0 
+Done sampling: M009_029_6_1 
+Done sampling: M009_029_6_2 
+Done sampling: M009_029_7_1 
+Done sampling: M009_029_7_2 
+Done sampling: M009_030_1_0 
+Done sampling: M009_030_1_2 
+Done sampling: M009_030_2_0 
+Done sampling: M009_030_2_1 
+Done sampling: M009_030_3_2 
+Done sampling: M009_030_4_0 
+Done sampling: M009_030_4_2 
+Done sampling: M009_030_5_0 
+Done sampling: M009_030_5_1 
+Done sampling: M009_030_5_2 
+Done sampling: M009_030_7_1 
+Done sampling: M009_030_7_2 
+Done sampling: M009_037_0_0 
+Done sampling: M009_038_0_0 
+Done sampling: M009_028_1_0 
+Done sampling: M009_028_1_2 
+Done sampling: M009_028_2_0 
+Done sampling: M009_028_2_1 
+Done sampling: M009_028_2_2 
+[11/17/26 01:30:05] INFO     Saving param:                     evaluation.py:155
+                             M009_028_3_2_surprised_high_gt                     
+                    INFO     Saving param:                     evaluation.py:323
+                             M009_028_3_2_surprised_high_0                      
+                    INFO     Saving vert:                      evaluation.py:341
+                             M009_028_3_2_surprised_high_gt                     
+[11/17/26 01:30:06] INFO     Saving vert:                      evaluation.py:341
+                             M009_028_3_2_surprised_high_0                      
+[11/17/26 01:30:07] INFO     Saving param:                     evaluation.py:323
+                             M009_028_3_2_surprised_high_3                      
+                    INFO     Saving vert:                      evaluation.py:341
+                             M009_028_3_2_surprised_high_3                      
+[11/17/26 01:30:09] INFO     Saving param:                     evaluation.py:323
+                             M009_028_3_2_surprised_high_6                      
+                    INFO     Saving vert:                      evaluation.py:341
+                             M009_028_3_2_surprised_high_6                      
+[11/17/26 01:30:10] INFO     Saving param:                     evaluation.py:323
+                             M009_028_3_2_surprised_high_9                      
+                    INFO     Saving vert:                      evaluation.py:341
+                             M009_028_3_2_surprised_high_9                      
+Done sampling: M009_028_3_2 
+Done sampling: M009_028_4_0 
+Done sampling: M009_028_4_2 
+Done sampling: M009_028_5_0 
+Done sampling: M009_028_5_1 
+Done sampling: M009_028_5_2 
+Done sampling: M009_028_6_0 
+Done sampling: M009_028_6_1 
+Done sampling: M009_028_6_2 
+Done sampling: M009_028_7_1 
+Done sampling: M009_028_7_2 
+Done sampling: M009_040_0_0 
+Done sampling: M009_030_2_2 
+Done sampling: M009_039_0_0 
+Done sampling: M013_029_1_2 
+Done sampling: M013_029_2_0 
+Done sampling: M013_029_2_1 
+Done sampling: M013_029_2_2 
+Done sampling: M013_029_3_0 
+Done sampling: M013_029_3_1 
+Done sampling: M013_029_3_2 
+Done sampling: M013_029_4_0 
+Done sampling: M013_029_4_1 
+Done sampling: M013_029_4_2 
+Done sampling: M013_029_5_0 
+Done sampling: M013_029_5_1 
+Done sampling: M013_029_5_2 
+Done sampling: M013_029_6_0 
+Done sampling: M013_029_6_1 
+Done sampling: M013_029_6_2 
+Done sampling: M013_029_7_0 
+Done sampling: M013_029_7_1 
+Done sampling: M013_029_7_2 
+Done sampling: M013_030_1_0 
+Done sampling: M013_030_1_1 
+Done sampling: M013_030_1_2 
+Done sampling: M013_030_2_0 
+Done sampling: M013_030_2_1 
+Done sampling: M013_030_2_2 
+Done sampling: M013_030_3_0 
+Done sampling: M013_030_3_1 
+Done sampling: M013_030_3_2 
+Done sampling: M013_030_4_0 
+Done sampling: M013_030_4_1 
+Done sampling: M013_030_4_2 
+Done sampling: M013_030_5_0 
+Done sampling: M013_030_5_1 
+Done sampling: M013_030_5_2 
+Done sampling: M013_030_6_0 
+Done sampling: M013_030_6_1 
+Done sampling: M013_030_6_2 
+Done sampling: M013_030_7_0 
+Done sampling: M013_030_7_1 
+Done sampling: M013_030_7_2 
+Done sampling: M013_028_1_1 
+Done sampling: M013_028_1_2 
+Done sampling: M013_028_2_0 
+Done sampling: M013_028_2_1 
+Done sampling: M013_028_2_2 
+Done sampling: M013_028_3_0 
+Done sampling: M013_028_3_1 
+Done sampling: M013_028_3_2 
+Done sampling: M013_028_4_0 
+Done sampling: M013_028_4_1 
+Done sampling: M013_028_4_2 
+Done sampling: M013_028_5_0 
+Done sampling: M013_028_5_1 
+Done sampling: M013_028_5_2 
+Done sampling: M013_028_6_0 
+Done sampling: M013_028_6_1 
+Done sampling: M013_028_6_2 
+Done sampling: M013_028_7_0 
+Done sampling: M013_028_7_1 
+Done sampling: M013_028_7_2 
+Done sampling: M013_029_1_0 
+Done sampling: M013_028_1_0 
+Done sampling: M013_029_1_1 
+Done sampling: M013_037_0_0 
+Done sampling: M013_038_0_0 
+Done sampling: M013_039_0_0 
+Done sampling: M013_040_0_0 
+Done sampling: M023_029_1_0 
+Done sampling: M023_029_1_2 
+Done sampling: M023_029_2_0 
+Done sampling: M023_029_2_1 
+Done sampling: M023_029_2_2 
+Done sampling: M023_029_3_0 
+Done sampling: M023_029_3_1 
+Done sampling: M023_029_3_2 
+Done sampling: M023_029_4_0 
+Done sampling: M023_029_4_1 
+Done sampling: M023_029_4_2 
+Done sampling: M023_029_5_0 
+Done sampling: M023_029_5_1 
+Done sampling: M023_029_5_2 
+Done sampling: M023_029_6_0 
+Done sampling: M023_029_6_1 
+Done sampling: M023_029_6_2 
+Done sampling: M023_029_7_0 
+Done sampling: M023_029_7_1 
+[11/17/26 01:38:37] INFO     Saving param:                     evaluation.py:155
+                             M023_029_7_2_contempt_high_gt                      
+                    INFO     Saving param:                     evaluation.py:323
+                             M023_029_7_2_contempt_high_0                       
+                    INFO     Saving vert:                      evaluation.py:341
+                             M023_029_7_2_contempt_high_gt                      
+[11/17/26 01:38:38] INFO     Saving vert:                      evaluation.py:341
+                             M023_029_7_2_contempt_high_0                       
+[11/17/26 01:38:39] INFO     Saving param:                     evaluation.py:323
+                             M023_029_7_2_contempt_high_3                       
+                    INFO     Saving vert:                      evaluation.py:341
+                             M023_029_7_2_contempt_high_3                       
+[11/17/26 01:38:40] INFO     Saving param:                     evaluation.py:323
+                             M023_029_7_2_contempt_high_6                       
+                    INFO     Saving vert:                      evaluation.py:341
+                             M023_029_7_2_contempt_high_6                       
+[11/17/26 01:38:41] INFO     Saving param:                     evaluation.py:323
+                             M023_029_7_2_contempt_high_9                       
+                    INFO     Saving vert:                      evaluation.py:341
+                             M023_029_7_2_contempt_high_9                       
+Done sampling: M023_029_7_2 
+Done sampling: M023_030_1_0 
+Done sampling: M023_030_1_2 
+Done sampling: M023_028_1_0 
+Done sampling: M023_030_2_1 
+Done sampling: M023_030_2_2 
+Done sampling: M023_030_3_0 
+Done sampling: M023_030_3_1 
+Done sampling: M023_030_3_2 
+Done sampling: M023_030_4_0 
+Done sampling: M023_030_4_1 
+Done sampling: M023_030_4_2 
+Done sampling: M023_030_5_0 
+Done sampling: M023_030_5_1 
+Done sampling: M023_030_5_2 
+Done sampling: M023_030_7_0 
+Done sampling: M023_030_7_1 
+Done sampling: M023_030_7_2 
+Done sampling: M023_028_2_0 
+Done sampling: M023_028_2_1 
+Done sampling: M023_028_2_2 
+Done sampling: M023_028_3_0 
+Done sampling: M023_028_3_1 
+Done sampling: M023_028_3_2 
+Done sampling: M023_028_4_0 
+Done sampling: M023_028_4_1 
+Done sampling: M023_028_4_2 
+Done sampling: M023_028_5_0 
+Done sampling: M023_028_5_1 
+Done sampling: M023_028_5_2 
+Done sampling: M023_028_6_0 
+Done sampling: M023_028_6_1 
+Done sampling: M023_028_6_2 
+Done sampling: M023_028_7_0 
+Done sampling: M023_028_7_1 
+Done sampling: M023_028_7_2 
+Done sampling: M023_028_1_2 
+Done sampling: M023_030_2_0 
+Done sampling: W009_028_1_2 
+Done sampling: W009_028_2_0 
+Done sampling: W009_028_2_1 
+Done sampling: W009_028_2_2 
+Done sampling: W009_028_3_0 
+Done sampling: W009_028_3_1 
+Done sampling: W009_028_3_2 
+Done sampling: W009_028_4_0 
+Done sampling: W009_028_4_1 
+Done sampling: W009_028_4_2 
+Done sampling: W009_028_5_0 
+Done sampling: W009_028_5_1 
+Done sampling: W009_028_6_0 
+Done sampling: W009_028_6_2 
+Done sampling: W009_028_7_0 
+Done sampling: W009_028_7_1 
+Done sampling: W009_028_7_2 
+Done sampling: W009_030_1_1 
+Done sampling: W009_030_1_2 
+Done sampling: W009_030_2_0 
+Done sampling: W009_030_2_1 
+Done sampling: W009_030_2_2 
+Done sampling: W009_030_3_0 
+Done sampling: W009_030_3_1 
+Done sampling: W009_030_3_2 
+Done sampling: W009_030_4_0 
+Done sampling: W009_030_5_0 
+Done sampling: W009_030_5_1 
+Done sampling: W009_030_7_0 
+Done sampling: W009_030_7_1 
+Done sampling: W009_030_7_2 
+Done sampling: W009_028_1_0 
+Done sampling: W009_029_1_0 
+Done sampling: W009_029_1_1 
+Done sampling: W009_029_1_2 
+Done sampling: W009_029_2_0 
+Done sampling: W009_029_2_1 
+Done sampling: W009_029_2_2 
+Done sampling: W009_029_3_0 
+Done sampling: W009_029_3_1 
+Done sampling: W009_029_3_2 
+Done sampling: W009_029_4_0 
+Done sampling: W009_029_5_0 
+Done sampling: W009_029_5_1 
+Done sampling: W009_029_6_0 
+Done sampling: W009_029_6_2 
+Done sampling: W009_029_7_0 
+Done sampling: W009_029_7_1 
+Done sampling: W009_029_7_2 
+Done sampling: W009_037_0_0 
+Done sampling: W009_038_0_0 
+Done sampling: W009_039_0_0 
+Done sampling: W009_040_0_0 
+Done sampling: W009_028_1_1 
+Done sampling: W009_030_1_0 
+Done sampling: W011_028_1_0 
+Done sampling: W011_028_1_2 
+Done sampling: W011_028_2_0 
+Done sampling: W011_028_2_1 
+Done sampling: W011_028_2_2 
+Done sampling: W011_028_3_0 
+Done sampling: W011_028_3_1 
+[11/17/26 01:47:56] INFO     Saving param:                     evaluation.py:155
+                             W011_028_3_2_surprised_high_gt                     
+                    INFO     Saving param:                     evaluation.py:323
+                             W011_028_3_2_surprised_high_0                      
+[11/17/26 01:47:57] INFO     Saving vert:                      evaluation.py:341
+                             W011_028_3_2_surprised_high_gt                     
+                    INFO     Saving vert:                      evaluation.py:341
+                             W011_028_3_2_surprised_high_0                      
+[11/17/26 01:47:59] INFO     Saving param:                     evaluation.py:323
+                             W011_028_3_2_surprised_high_3                      
+                    INFO     Saving vert:                      evaluation.py:341
+                             W011_028_3_2_surprised_high_3                      
+[11/17/26 01:48:01] INFO     Saving param:                     evaluation.py:323
+                             W011_028_3_2_surprised_high_6                      
+                    INFO     Saving vert:                      evaluation.py:341
+                             W011_028_3_2_surprised_high_6                      
+[11/17/26 01:48:04] INFO     Saving param:                     evaluation.py:323
+                             W011_028_3_2_surprised_high_9                      
+                    INFO     Saving vert:                      evaluation.py:341
+                             W011_028_3_2_surprised_high_9                      
+Done sampling: W011_028_3_2 
+Done sampling: W011_028_4_0 
+Done sampling: W011_028_4_1 
+Done sampling: W011_028_4_2 
+Done sampling: W011_028_5_0 
+Done sampling: W011_028_5_1 
+Done sampling: W011_028_5_2 
+Done sampling: W011_028_6_0 
+Done sampling: W011_028_6_1 
+Done sampling: W011_028_6_2 
+Done sampling: W011_028_7_0 
+Done sampling: W011_028_7_1 
+Done sampling: W011_028_7_2 
+Done sampling: W011_029_1_0 
+Done sampling: W011_030_2_2 
+Done sampling: W011_030_3_0 
+Done sampling: W011_030_3_1 
+Done sampling: W011_030_3_2 
+Done sampling: W011_030_4_0 
+Done sampling: W011_030_4_1 
+Done sampling: W011_030_4_2 
+Done sampling: W011_030_5_0 
+Done sampling: W011_030_5_1 
+Done sampling: W011_030_5_2 
+Done sampling: W011_030_7_0 
+Done sampling: W011_030_7_1 
+Done sampling: W011_030_7_2 
+Done sampling: W011_029_2_0 
+Done sampling: W011_029_2_1 
+Done sampling: W011_029_2_2 
+Done sampling: W011_029_3_0 
+Done sampling: W011_029_3_1 
+Done sampling: W011_029_3_2 
+Done sampling: W011_029_4_0 
+Done sampling: W011_029_4_1 
+Done sampling: W011_029_4_2 
+Done sampling: W011_029_5_0 
+Done sampling: W011_029_5_1 
+Done sampling: W011_029_5_2 
+Done sampling: W011_029_6_0 
+Done sampling: W011_029_6_1 
+Done sampling: W011_029_6_2 
+Done sampling: W011_029_7_0 
+Done sampling: W011_029_7_1 
+Done sampling: W011_029_7_2 
+Done sampling: W011_030_1_0 
+Done sampling: W011_030_1_2 
+Done sampling: W011_030_2_0 
+Done sampling: W011_037_0_0 
+Done sampling: W011_038_0_0 
+Done sampling: W011_039_0_0 
+Done sampling: W011_040_0_0 
+Done sampling: W011_029_1_2 
+Done sampling: W011_030_2_1 
+Done sampling: W014_029_1_0 
+Done sampling: W014_029_1_1 
+Done sampling: W014_029_1_2 
+Done sampling: W014_029_2_0 
+Done sampling: W014_029_2_1 
+Done sampling: W014_029_2_2 
+Done sampling: W014_029_3_0 
+Done sampling: W014_029_3_1 
+Done sampling: W014_029_3_2 
+Done sampling: W014_029_4_0 
+Done sampling: W014_029_4_2 
+Done sampling: W014_029_5_0 
+Done sampling: W014_029_5_1 
+Done sampling: W014_029_5_2 
+Done sampling: W014_029_6_0 
+Done sampling: W014_029_6_1 
+Done sampling: W014_029_6_2 
+Done sampling: W014_029_7_0 
+Done sampling: W014_029_7_1 
+Done sampling: W014_029_7_2 
+Done sampling: W014_030_1_0 
+Done sampling: W014_030_1_1 
+Done sampling: W014_030_1_2 
+Done sampling: W014_030_2_0 
+Done sampling: W014_030_2_1 
+Done sampling: W014_030_2_2 
+Done sampling: W014_030_3_1 
+Done sampling: W014_030_3_2 
+Done sampling: W014_030_4_0 
+Done sampling: W014_030_4_2 
+Done sampling: W014_030_5_0 
+Done sampling: W014_030_5_1 
+Done sampling: W014_030_5_2 
+Done sampling: W014_030_7_0 
+Done sampling: W014_030_7_1 
+Done sampling: W014_030_7_2 
+Done sampling: W014_037_0_0 
+Done sampling: W014_038_0_0 
+Done sampling: W014_039_0_0 
+Done sampling: W014_040_0_0 
+Done sampling: W014_028_1_0 
+Done sampling: W014_028_1_1 
+Done sampling: W014_028_1_2 
+Done sampling: W014_030_3_0 
+Done sampling: W014_028_2_0 
+Done sampling: W014_028_2_1 
+[11/17/26 01:56:37] INFO     Saving param:                     evaluation.py:155
+                             W014_028_2_2_sad_high_gt                           
+[11/17/26 01:56:38] INFO     Saving param:                     evaluation.py:323
+                             W014_028_2_2_sad_high_0                            
+                    INFO     Saving vert:                      evaluation.py:341
+                             W014_028_2_2_sad_high_gt                           
+                    INFO     Saving vert:                      evaluation.py:341
+                             W014_028_2_2_sad_high_0                            
+[11/17/26 01:56:40] INFO     Saving param:                     evaluation.py:323
+                             W014_028_2_2_sad_high_3                            
+                    INFO     Saving vert:                      evaluation.py:341
+                             W014_028_2_2_sad_high_3                            
+[11/17/26 01:56:43] INFO     Saving param:                     evaluation.py:323
+                             W014_028_2_2_sad_high_6                            
+                    INFO     Saving vert:                      evaluation.py:341
+                             W014_028_2_2_sad_high_6                            
+[11/17/26 01:56:46] INFO     Saving param:                     evaluation.py:323
+                             W014_028_2_2_sad_high_9                            
+                    INFO     Saving vert:                      evaluation.py:341
+                             W014_028_2_2_sad_high_9                            
+Done sampling: W014_028_2_2 
+Done sampling: W014_028_3_0 
+Done sampling: W014_028_3_1 
+Done sampling: W014_028_3_2 
+Done sampling: W014_028_4_0 
+Done sampling: W014_028_4_2 
+Done sampling: W014_028_5_0 
+Done sampling: W014_028_5_1 
+Done sampling: W014_028_5_2 
+Done sampling: W014_028_6_0 
+Done sampling: W014_028_6_1 
+Done sampling: W014_028_6_2 
+Done sampling: W014_028_7_0 
+Done sampling: W014_028_7_1 
+Done sampling: W014_028_7_2 
+Done sampling: W016_028_1_2 
+Done sampling: W016_028_2_0 
+Done sampling: W016_028_2_1 
+Done sampling: W016_028_2_2 
+Done sampling: W016_028_3_0 
+Done sampling: W016_028_3_1 
+Done sampling: W016_028_3_2 
+Done sampling: W016_028_4_0 
+Done sampling: W016_028_4_1 
+Done sampling: W016_028_4_2 
+Done sampling: W016_028_5_0 
+Done sampling: W016_028_5_1 
+Done sampling: W016_028_5_2 
+Done sampling: W016_028_6_0 
+Done sampling: W016_028_6_1 
+Done sampling: W016_028_6_2 
+Done sampling: W016_028_7_0 
+Done sampling: W016_028_7_1 
+Done sampling: W016_028_7_2 
+Done sampling: W016_030_1_1 
+Done sampling: W016_030_1_2 
+Done sampling: W016_030_2_0 
+Done sampling: W016_030_2_1 
+Done sampling: W016_030_2_2 
+Done sampling: W016_030_3_0 
+Done sampling: W016_030_3_1 
+Done sampling: W016_030_3_2 
+Done sampling: W016_030_4_0 
+Done sampling: W016_030_4_1 
+Done sampling: W016_030_4_2 
+Done sampling: W016_030_5_0 
+Done sampling: W016_030_5_1 
+Done sampling: W016_030_5_2 
+Done sampling: W016_030_7_0 
+Done sampling: W016_030_7_1 
+Done sampling: W016_028_1_0 
+Done sampling: W016_029_1_1 
+Done sampling: W016_029_1_2 
+Done sampling: W016_029_2_0 
+Done sampling: W016_029_2_1 
+Done sampling: W016_029_2_2 
+Done sampling: W016_029_3_0 
+Done sampling: W016_029_3_1 
+Done sampling: W016_029_3_2 
+Done sampling: W016_029_4_0 
+Done sampling: W016_029_4_1 
+Done sampling: W016_029_4_2 
+Done sampling: W016_029_5_0 
+Done sampling: W016_029_5_1 
+Done sampling: W016_029_5_2 
+Done sampling: W016_029_6_0 
+Done sampling: W016_029_6_1 
+Done sampling: W016_029_6_2 
+Done sampling: W016_029_7_0 
+Done sampling: W016_029_7_1 
+Done sampling: W016_029_7_2 
+Done sampling: W016_037_0_0 
+Done sampling: W016_038_0_0 
+Done sampling: W016_039_0_0 
+Done sampling: W016_040_0_0 
+Done sampling: W016_028_1_1 
+Done sampling: W016_029_1_0 
+Done sampling: W016_030_1_0 
+Done sampling: W016_030_7_2 
+
+[11/17/26 02:02:43] INFO     Total sequence number: 478        evaluation.py:279
+                    INFO     Total frame number: 57715         evaluation.py:280

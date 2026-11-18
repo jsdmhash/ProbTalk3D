@@ -40,3 +40,16 @@ results/generation/vqvae_pred/
 ours/logs/smoke_audio/
 client_outputs/
 ours/runs/
+
+# 6. Ground-truth datasets (never commit)
+*.zip
+*.tar
+*.hdf5
+datasets/3DMEAD_preprocess/EMICA-MEAD_flame2020/*/
+datasets/3DMEAD_preprocess/MEAD_audio_source/*/
+datasets/mead/wav/*.wav
+
+# survey: keep private until the survey closes
+ours/survey/answer_key.txt
+ours/survey/*.mp4
+results/evaluation/

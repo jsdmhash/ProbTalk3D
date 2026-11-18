@@ -1,0 +1,33 @@
+nohup: ignoring input
+speakers needed: 32
+audio.tar files found in Drive: 48
+[1/32] M003: downloading
+Traceback (most recent call last):
+  File "/mnt/SHARED/ProbTalk3D/.venv/lib/python3.13/site-packages/gdown/download.py", line 273, in download
+    url = get_url_from_gdrive_confirmation(res.text)
+  File "/mnt/SHARED/ProbTalk3D/.venv/lib/python3.13/site-packages/gdown/download.py", line 53, in get_url_from_gdrive_confirmation
+    raise FileURLRetrievalError(error)
+gdown.exceptions.FileURLRetrievalError: Too many users have viewed or downloaded this file recently. Please try accessing the file again later. If the file you are trying to access is particularly large or is shared with many people, it may take up to 24 hours to be able to view or download the file. If you still can't access a file after 24 hours, contact your domain administrator.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt/SHARED/ProbTalk3D/ours/tools/get_mead_audio.py", line 24, in <module>
+    gdown.download(id=audio[spk], output=str(dest), quiet=True, resume=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/SHARED/ProbTalk3D/.venv/lib/python3.13/site-packages/gdown/download.py", line 284, in download
+    raise FileURLRetrievalError(message)
+gdown.exceptions.FileURLRetrievalError: Failed to retrieve file url:
+
+	Too many users have viewed or downloaded this file recently. Please
+	try accessing the file again later. If the file you are trying to
+	access is particularly large or is shared with many people, it may
+	take up to 24 hours to be able to view or download the file. If you
+	still can't access a file after 24 hours, contact your domain
+	administrator.
+
+You may still be able to access the file from the browser:
+
+	https://drive.google.com/uc?id=1vyV7oBL9qvdA_FRvC5mMU_xNwvxMhivm
+
+but Gdown can't. Please check connections and permissions.

@@ -23,3 +23,5 @@ tensorboardX==2.6.5
 matplotlib==3.10.0
 huggingface_hub
 gradio
+opencv-python-headless
+six

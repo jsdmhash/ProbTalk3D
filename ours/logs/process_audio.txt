@@ -1,0 +1,3 @@
+nohup: ignoring input
+Total subjects:  9
+Total sentences:  40
