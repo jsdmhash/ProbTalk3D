@@ -233,6 +233,9 @@ _launch_params = inspect.signature(gr.Blocks.launch).parameters
 for key, value in (("theme", theme), ("css", CSS), ("js", FORCE_DARK),
                    ("head", '<meta name="theme-color" content="#070a13">')):
     (launch_kw if key in _launch_params else blocks_kw)[key] = value
+ICON = Path(__file__).resolve().parent / "assets" / "icon.png"
+if ICON.exists() and "favicon_path" in _launch_params:   # browser tab + home-screen icon
+    launch_kw["favicon_path"] = str(ICON)
 if "pwa" in _launch_params:          # lets phones install the app to the home screen
     launch_kw["pwa"] = True
 
