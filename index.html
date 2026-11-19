@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ProbTalk3D Studio: speech-driven 3D faces with emotion and variety</title>
+<meta name="description" content="A replication and cloud deployment of ProbTalk3D (ACM SIGGRAPH MIG 2024) by Jyothi Masina and Shruti Deulgaonkar.">
+<link rel="icon" href="assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16202E; --ink2:#46546A; --muted:#6B778A; --line:#E2E7EF; --bg:#FFFFFF; --soft:#F5F7FB;
+    --blue:#1F5FBF; --teal:#0B7A6E; --orange:#C25A1C; --navy:#0E1726;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;font-size:17px}
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+  code,.mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.88em}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  img,video{max-width:100%;display:block}
+
+  /* header */
+  .top{background:var(--navy);color:#fff}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:600;color:#fff}
+  .brand img{width:36px;height:36px;border-radius:9px}
+  .nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;font-size:15px}
+  .nav ul a{color:#C9D3E3}
+  .hero{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;padding:40px 0 64px}
+  .hero h1{font-size:44px;line-height:1.12;margin:0 0 18px;letter-spacing:-.01em}
+  .hero p.lead{font-size:19px;color:#C9D3E3;margin:0 0 26px}
+  .tagline{display:inline-block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#7FD3C7;margin-bottom:14px;font-weight:600}
+  .btns{display:flex;flex-wrap:wrap;gap:12px}
+  .btn{display:inline-block;padding:11px 18px;border-radius:10px;font-weight:600;font-size:15px}
+  .btn.primary{background:#fff;color:var(--navy)}
+  .btn.ghost{border:1px solid #3A4A63;color:#fff}
+  .btn:hover{text-decoration:none;opacity:.92}
+  .hero .media{background:#000;border-radius:16px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+  .by{margin-top:22px;font-size:14px;color:#9AA8BD}
+
+  /* sections */
+  section{padding:72px 0;border-bottom:1px solid var(--line)}
+  section.alt{background:var(--soft)}
+  h2{font-size:30px;margin:0 0 10px;letter-spacing:-.01em}
+  h3{font-size:19px;margin:0 0 6px}
+  .sub{color:var(--ink2);max-width:760px;margin:0 0 32px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px}
+  .card p{margin:0;color:var(--ink2);font-size:15.5px}
+  .k{font-size:12px;letter-spacing:.07em;text-transform:uppercase;font-weight:700;margin-bottom:8px}
+  .k.b{color:var(--blue)} .k.t{color:var(--teal)} .k.o{color:var(--orange)}
+  figure{margin:0}
+  figure.frame{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;overflow:hidden}
+  figure.frame img,figure.frame video{border-radius:10px;width:100%}
+  figcaption{font-size:14px;color:var(--muted);margin-top:10px}
+
+  /* pipeline */
+  .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;align-items:stretch;margin-bottom:26px}
+  .step{position:relative;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin-right:22px}
+  .step:last-child{margin-right:0}
+  .step:not(:last-child)::after{content:"";position:absolute;right:-17px;top:50%;width:12px;height:12px;border-top:2px solid var(--muted);border-right:2px solid var(--muted);transform:translateY(-50%) rotate(45deg)}
+  .step .n{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--muted)}
+  .step b{display:block;margin:2px 0 4px}
+  .step span{font-size:14px;color:var(--ink2)}
+  .code{background:var(--navy);color:#DCE6F5;border-radius:12px;padding:16px 18px;font-family:"JetBrains Mono",monospace;font-size:13.5px;line-height:1.55;overflow-x:auto;white-space:pre}
+  .code .c{color:#7F8DA3}
+
+  /* tables */
+  .tbl{width:100%;border-collapse:collapse;font-size:15px;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .tbl th,.tbl td{padding:10px 14px;text-align:right;border-bottom:1px solid var(--line)}
+  .tbl th:first-child,.tbl td:first-child{text-align:left}
+  .tbl thead th{background:var(--soft);font-weight:600;color:var(--ink2);font-size:13.5px}
+  .tbl tr:last-child td{border-bottom:none}
+  .tbl tr.hl td{background:#EAF3F1;font-weight:600}
+  .note{font-size:14px;color:var(--muted);margin-top:10px}
+
+  /* stats */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px}
+  .stat .v{font-size:32px;font-weight:700;letter-spacing:-.02em}
+  .stat .l{font-size:14px;color:var(--ink2)}
+
+  ul.clean{margin:0;padding-left:20px}
+  ul.clean li{margin-bottom:8px;color:var(--ink2)}
+  footer{padding:40px 0 56px;color:var(--muted);font-size:14.5px}
+  footer p{margin:0 0 8px}
+
+  @media (max-width:900px){
+    .hero{grid-template-columns:1fr;gap:32px;padding-top:20px}
+    .hero h1{font-size:34px}
+    .grid3,.grid2{grid-template-columns:1fr}
+    .flow{grid-template-columns:1fr;gap:22px}
+    .step{margin-right:0}
+    .step:not(:last-child)::after{right:50%;top:auto;bottom:-17px;transform:translateX(50%) rotate(135deg)}
+    .stats{grid-template-columns:1fr 1fr}
+    .nav ul{display:none}
+    section{padding:52px 0}
+    .tbl{font-size:13.5px}
+    .tbl th,.tbl td{padding:8px 9px}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <nav class="nav">
+      <a class="brand" href="#"><img src="assets/icon.png" alt="">ProbTalk3D Studio</a>
+      <ul>
+        <li><a href="#demo">Demo</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#service">Service</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="https://github.com/jsdmhash/ProbTalk3D">Code</a></li>
+      </ul>
+    </nav>
+    <div class="hero">
+      <div>
+        <div class="tagline">Replication and deployment of a SIGGRAPH MIG 2024 paper</div>
+        <h1>A voice goes in. A 3D face talks back, with the emotion you choose.</h1>
+        <p class="lead">We took ProbTalk3D, a research model that animates a 3D face from speech, got it running on today's software, verified the paper's claims on real data, and turned it into a cloud service with a web studio, an API and a phone app.</p>
+        <div class="btns">
+          <a class="btn primary" href="#demo">Watch the demo</a>
+          <a class="btn ghost" href="https://github.com/jsdmhash/ProbTalk3D">Code on GitHub</a>
+          <a class="btn ghost" href="https://doi.org/10.1145/3677388.3696320">The paper</a>
+        </div>
+        <div class="by">Jyothi Masina and Shruti Deulgaonkar · UNC Charlotte · Fall 2026</div>
+      </div>
+      <div class="media">
+        <video src="assets/sample_happy.mp4" poster="assets/sample_poster.jpg" controls playsinline preload="metadata"></video>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>What it does</h2>
+    <p class="sub">ProbTalk3D (Wu, Haque and Yumak, Utrecht University) was the first model to offer both emotion control and a fresh performance on every run. Earlier models had one or the other.</p>
+    <div class="grid3">
+      <div class="card"><div class="k b">Emotion you can dial</div><h3>8 emotions, 3 strengths</h3><p>A 43-number style input picks the speaker (32), the emotion (8) and the intensity (3).</p></div>
+      <div class="card"><div class="k t">No two takes alike</div><h3>A new take every run</h3><p>The model samples its motions instead of always taking the closest one, so the same line comes out a little differently each time.</p></div>
+      <div class="card"><div class="k o">Runs as a service</div><h3>Web, API and phone</h3><p>Our deployment serves a browser studio, a <code>/generate</code> API, a Python client and an installable phone app.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="demo" class="alt">
+  <div class="wrap">
+    <h2>Demo</h2>
+    <p class="sub">A recording of the live studio: upload a voice, pick the speaker, emotion and intensity, and generate. At the end, three takes of the same line play side by side. Long waits are sped up.</p>
+    <figure class="frame">
+      <video src="assets/demo.mp4" poster="assets/demo_poster.jpg" controls playsinline preload="metadata"></video>
+      <figcaption>ProbTalk3D Studio, recorded on the deployed Hugging Face Space (about 3 minutes, no audio).</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Emotion control and variety, side by side</h2>
+    <p class="sub">Rendered with our own HD face renderer, which adds eyes, eyebrows and lips to the FLAME head model without Blender.</p>
+    <div class="grid2">
+      <figure class="frame">
+        <img src="assets/emotion_grid.jpg" alt="The same neutral sentence rendered with eight different emotion settings">
+        <figcaption>Same sentence and speaker, sampling off; only the emotion setting changes.</figcaption>
+      </figure>
+      <figure class="frame">
+        <video src="assets/takes.mp4" autoplay muted loop playsinline></video>
+        <figcaption>Same audio, speaker and emotion, run three times. Only the codebook sampling differs, so each mouth moves slightly differently.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="how" class="alt">
+  <div class="wrap">
+    <h2>How the model works</h2>
+    <p class="sub">A two-stage VQ-VAE. Stage 1 learns a codebook of 256 real facial motions from 3D faces, with no audio. Stage 2 listens to the speech and learns which codebook entries to use.</p>
+    <div class="flow">
+      <div class="step"><div class="n">01</div><b>Speech</b><span>16 kHz audio</span></div>
+      <div class="step"><div class="n">02</div><b>HuBERT</b><span>Speech features, mixed with the 43-number style</span></div>
+      <div class="step"><div class="n">03</div><b>Transformer</b><span>12 layers predict a code for each frame</span></div>
+      <div class="step"><div class="n">04</div><b>Codebook</b><span>256 entries × 128; sampled, not just nearest</span></div>
+      <div class="step"><div class="n">05</div><b>FLAME</b><span>53 values per frame at 25 fps</span></div>
+    </div>
+    <div class="grid2">
+      <div>
+        <h3>The one if-else behind the variety</h3>
+        <p style="color:var(--ink2);margin-top:0">During training the nearest codebook entry always wins. At generation time the model draws an entry at random, with closer entries more likely. Temperature T sets how far it can wander; the paper uses 0.2. Every entry is real learned motion, so every take stays realistic.</p>
+      </div>
+      <div class="code"><span class="c"># framework/model/utils/vqvae_quantizer.py</span>
+<span class="c"># d = distance from each frame to all 256 entries</span>
+if not sample:
+    idx = torch.argmin(d, dim=1)
+else:
+    probs = softmax(-d / temperature)
+    idx = torch.multinomial(probs, 1)</div>
+    </div>
+  </div>
+</section>
+
+<section id="service">
+  <div class="wrap">
+    <h2>What we built</h2>
+    <p class="sub">Three milestones, from reading the code to a working service.</p>
+    <div class="grid3" style="margin-bottom:28px">
+      <div class="card"><div class="k b">Milestone 1</div><h3>Code review</h3><p>Traced one run end to end through the repository and flagged six risks early: Python 3.9 with 182 pinned packages, a broken HuBERT import, PyTorch 2.6 checkpoint loading, batch size 1 only, weights on Google Drive, and Blender for rendering.</p></div>
+      <div class="card"><div class="k t">Milestone 2</div><h3>Running it today</h3><p>Got the authors' model running in Colab on Python 3.13 and PyTorch 2.11 with 38 packages instead of 182 and only three small loading patches. No changes to the network or its maths.</p></div>
+      <div class="card"><div class="k o">Milestone 3</div><h3>A cloud service</h3><p>A Docker Hugging Face Space that loads the model once (under 1 s per request after that), renders HD video on all CPU cores, and serves a Gradio studio, an API and a Python client.</p></div>
+    </div>
+    <div class="grid2">
+      <figure class="frame">
+        <img src="assets/hero.jpg" alt="Landing page of ProbTalk3D Studio">
+        <figcaption>The studio's landing page. It also installs to a phone's home screen with its own icon.</figcaption>
+      </figure>
+      <div>
+        <h3>Call it from code</h3>
+        <div class="code" style="margin-bottom:18px">from gradio_client import Client
+
+c = Client("jyomasina/probtalk3d")
+c.predict(..., api_name="/generate")</div>
+        <ul class="clean">
+          <li>Engine output matches the authors' <code>generation.py</code> exactly (max difference 0.000).</li>
+          <li>For a 5.8 s clip, the model takes 0.41 s and drawing the frames takes 11.3 s.</li>
+          <li>Weights and the FLAME file live in a private model repo, not in the public code.</li>
+          <li>A <code>git push</code> rebuilds the service automatically.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="results" class="alt">
+  <div class="wrap">
+    <h2>Results on real data</h2>
+    <p class="sub">We downloaded the paper's own test data (MEAD audio paired with 3DMEAD faces) and ran the authors' metric code, streamed so it fits in laptop memory: 478 sequences, 57,715 frames, 8 of the 32 test speakers, 10 samples each, T = 0.2.</p>
+    <div class="grid2">
+      <div>
+        <h3>Our numbers vs the paper</h3>
+        <table class="tbl">
+          <thead><tr><th>Metric</th><th>Paper</th><th>Ours</th><th>Diff</th></tr></thead>
+          <tbody>
+            <tr><td>MVE ↓</td><td>0.7243</td><td>0.7056</td><td>−2.6%</td></tr>
+            <tr><td>LVE ↓</td><td>0.6040</td><td>0.6418</td><td>+6.3%</td></tr>
+            <tr><td>MEE ↓</td><td>0.5549</td><td>0.5918</td><td>+6.6%</td></tr>
+            <tr><td>CE ↓</td><td>0.5227</td><td>0.5688</td><td>+8.8%</td></tr>
+            <tr><td>FDD ↓</td><td>0.0415</td><td>0.0537</td><td>+29%</td></tr>
+            <tr><td>Diversity ↑</td><td>0.3274</td><td>0.3116</td><td>−4.8%</td></tr>
+          </tbody>
+        </table>
+        <p class="note">Paper scales. FDD values are tiny (about 5 × 10⁻⁷), so small gaps look large in percent.</p>
+      </div>
+      <div>
+        <h3>Temperature trades accuracy for variety</h3>
+        <table class="tbl">
+          <thead><tr><th>Setting</th><th>MVE ↓</th><th>LVE ↓</th><th>Diversity ↑</th></tr></thead>
+          <tbody>
+            <tr><td>Sampling off</td><td>0.6955</td><td>0.6364</td><td>0.0000</td></tr>
+            <tr><td>T = 0.05</td><td>0.6951</td><td>0.6346</td><td>0.1526</td></tr>
+            <tr class="hl"><td>T = 0.2 (paper)</td><td>0.7056</td><td>0.6417</td><td>0.3116</td></tr>
+            <tr><td>T = 0.5</td><td>0.8537</td><td>0.8059</td><td>0.5800</td></tr>
+            <tr><td>T = 1.0</td><td>1.2837</td><td>1.4393</td><td>0.7893</td></tr>
+          </tbody>
+        </table>
+        <p class="note">Same 478 clips. At 0.2 error rises only about 1.5% over sampling off, with real variety; at 1.0 error nearly doubles.</p>
+      </div>
+    </div>
+    <div class="grid2" style="margin-top:32px">
+      <figure class="frame">
+        <img src="assets/tradeoff.jpg" alt="Error against diversity for each temperature">
+        <figcaption>Each point is one temperature setting on the same test clips.</figcaption>
+      </figure>
+      <figure class="frame">
+        <img src="assets/heatmaps.jpg" alt="Heatmaps of how far each part of the face moves for each emotion">
+        <figcaption>How far each point moves compared with neutral. Happy pulls the mouth corners (4.6 mm on average); angry and disgusted move the brows, disgusted most (up to 8.8 mm).</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>What people saw</h2>
+    <p class="sub">An anonymous survey of 20 people who watched 12 short clips: 4 rated with sound, 6 silent clips where they guessed the emotion, and 2 take pairs (one an identical control).</p>
+    <div class="stats">
+      <div class="stat"><div class="v">3.75<span style="font-size:18px;color:var(--muted)">/5</span></div><div class="l">Lip-sync rating</div></div>
+      <div class="stat"><div class="v">3.35<span style="font-size:18px;color:var(--muted)">/5</span></div><div class="l">Naturalness (no skin texture or hair)</div></div>
+      <div class="stat"><div class="v">41%</div><div class="l">Emotion guessed right on silent clips, vs 12.5% chance</div></div>
+      <div class="stat"><div class="v">13<span style="font-size:18px;color:var(--muted)">/20</span></div><div class="l">Noticed that sampled takes differ</div></div>
+    </div>
+    <div class="grid2">
+      <figure class="frame">
+        <img src="assets/survey.jpg" alt="Survey ratings and accuracy charts">
+        <figcaption>Ratings with sound, and emotion accuracy on silent clips.</figcaption>
+      </figure>
+      <figure class="frame">
+        <img src="assets/confusion.jpg" alt="Confusion matrix of emotion guesses">
+        <figcaption>Sad was easiest. Fear was read as surprise and disgust as anger, the same mix-ups people make with real faces.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="grid2">
+      <div>
+        <h2>Limits</h2>
+        <ul class="clean">
+          <li>We evaluated 8 of the 32 test speakers, not the full set.</li>
+          <li>We used the authors' pretrained weights and did not retrain.</li>
+          <li>Rendering on CPU is the slow step (about 2 s per second of video).</li>
+          <li>The survey was small (20 people).</li>
+        </ul>
+      </div>
+      <div>
+        <h2>Credits</h2>
+        <ul class="clean">
+          <li>Model and paper: Sichun Wu, Kazi Injamamul Haque and Zerrin Yumak, Utrecht University. <a href="https://doi.org/10.1145/3677388.3696320">ProbTalk3D, ACM SIGGRAPH MIG 2024</a>.</li>
+          <li>Face model: FLAME (licensed separately; not included in our public code).</li>
+          <li>We used Claude (Anthropic) and the Antigravity coding agent as assistants for planning, code and writing. We ran every step and checked every number ourselves.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><b style="color:var(--ink)">ProbTalk3D Studio</b> · Jyothi Masina and Shruti Deulgaonkar</p>
+    <p>A live demo of the studio is available on request. Code: <a href="https://github.com/jsdmhash/ProbTalk3D">github.com/jsdmhash/ProbTalk3D</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
