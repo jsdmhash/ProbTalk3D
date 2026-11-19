@@ -8,6 +8,7 @@ studio, an API, a Python client and an installable phone app.
 
 - **Showcase page:** https://jsdmhash.github.io/ProbTalk3D/
 - **Demo recording:** [`docs/final/demo_recording.mp4`](../docs/final/demo_recording.mp4)
+- **Academic report (PDF):** [`docs/final/ProbTalk3D_Report.pdf`](../docs/final/ProbTalk3D_Report.pdf) (LaTeX source in [`docs/report/`](../docs/report/))
 - **Final presentation, speaker script and study guide:** [`docs/final/`](../docs/final/)
 
 ## Results at a glance
