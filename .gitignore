@@ -53,3 +53,7 @@ datasets/mead/wav/*.wav
 ours/survey/answer_key.txt
 ours/survey/*.mp4
 results/evaluation/
+
+# FLAME model files (licensed, kept in the private HF repo)
+deps/flame/model/*.pkl
+deps/flame/model/*.npy
