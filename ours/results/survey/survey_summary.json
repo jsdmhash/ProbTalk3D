@@ -1,0 +1,89 @@
+{
+  "respondents": 25,
+  "A": {
+    "A1": {
+      "lip_sync": 4.2,
+      "naturalness": 3.52,
+      "lip_sd": 0.87,
+      "nat_sd": 1.29
+    },
+    "A2": {
+      "lip_sync": 3.88,
+      "naturalness": 3.52,
+      "lip_sd": 0.97,
+      "nat_sd": 1.23
+    },
+    "A3": {
+      "lip_sync": 3.76,
+      "naturalness": 3.36,
+      "lip_sd": 1.33,
+      "nat_sd": 1.32
+    },
+    "A4": {
+      "lip_sync": 3.8,
+      "naturalness": 3.6,
+      "lip_sd": 1.08,
+      "nat_sd": 1.12
+    }
+  },
+  "A_overall": {
+    "lip_sync": 3.91,
+    "naturalness": 3.5
+  },
+  "B": {
+    "B1": {
+      "true": "surprised",
+      "accuracy": 0.44,
+      "clarity": 3.48,
+      "most_chosen": "surprised"
+    },
+    "B2": {
+      "true": "sad",
+      "accuracy": 0.6,
+      "clarity": 4.04,
+      "most_chosen": "sad"
+    },
+    "B3": {
+      "true": "happy",
+      "accuracy": 0.52,
+      "clarity": 3.84,
+      "most_chosen": "happy"
+    },
+    "B4": {
+      "true": "disgusted",
+      "accuracy": 0.24,
+      "clarity": 4.2,
+      "most_chosen": "angry"
+    },
+    "B5": {
+      "true": "angry",
+      "accuracy": 0.36,
+      "clarity": 3.96,
+      "most_chosen": "angry"
+    },
+    "B6": {
+      "true": "fear",
+      "accuracy": 0.16,
+      "clarity": 3.96,
+      "most_chosen": "surprised"
+    }
+  },
+  "B_overall_accuracy": 0.387,
+  "chance": 0.125,
+  "C": {
+    "C1": {
+      "Slightly different": 14,
+      "Exactly the same": 10,
+      "Clearly different": 1
+    },
+    "C2": {
+      "Exactly the same": 13,
+      "Slightly different": 10,
+      "Clearly different": 2
+    }
+  },
+  "C_natural": {
+    "C1": 3.88,
+    "C2": 3.92
+  }
+}

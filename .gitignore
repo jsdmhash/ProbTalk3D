@@ -57,3 +57,5 @@ results/evaluation/
 # FLAME model files (licensed, kept in the private HF repo)
 deps/flame/model/*.pkl
 deps/flame/model/*.npy
+_project_files/
+.gradio/

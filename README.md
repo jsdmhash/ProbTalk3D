@@ -1,3 +1,8 @@
+> **About this fork:** this is a course project by Jyothi Masina and Shruti Deulgaonkar (UNC Charlotte, Fall 2026)
+> that replicates ProbTalk3D, evaluates it on ground truth and deploys it as a web service.
+> Our additions live in [`ours/`](ours/README.md) · showcase page: https://jsdmhash.github.io/ProbTalk3D/
+> The original README follows unchanged.
+
 ## **ProbTalk3D & ProbTalk3D-X**
 Official PyTorch implementation for the papers:
 
