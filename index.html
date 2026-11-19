@@ -39,7 +39,15 @@
   .btn.primary{background:#fff;color:var(--navy)}
   .btn.ghost{border:1px solid #3A4A63;color:#fff}
   .btn:hover{text-decoration:none;opacity:.92}
-  .hero .media{background:#000;border-radius:16px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+  .logo-wrap{display:flex;justify-content:center;align-items:center;position:relative}
+  .logo-wrap::before{content:"";position:absolute;width:78%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(168,85,247,.45),rgba(45,212,191,.12) 55%,transparent 72%);filter:blur(28px)}
+  .logo{position:relative;width:min(340px,80%);border-radius:22%;box-shadow:0 24px 60px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.06);animation:floaty 6s ease-in-out infinite}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  @media (prefers-reduced-motion:reduce){.logo{animation:none}}
+  .tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+  .tiles.three{grid-template-columns:repeat(3,1fr)}
+  .tile img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;border:1px solid var(--line)}
+  .tile span{display:block;text-align:center;font-size:14px;color:var(--ink2);margin-top:6px}
   .by{margin-top:22px;font-size:14px;color:#9AA8BD}
 
   /* sections */
@@ -50,6 +58,7 @@
   .sub{color:var(--ink2);max-width:760px;margin:0 0 32px}
   .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+  .grid2.wide{grid-template-columns:1.5fr 1fr}
   .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px}
   .card p{margin:0;color:var(--ink2);font-size:15.5px}
   .k{font-size:12px;letter-spacing:.07em;text-transform:uppercase;font-weight:700;margin-bottom:8px}
@@ -93,11 +102,13 @@
   @media (max-width:900px){
     .hero{grid-template-columns:1fr;gap:32px;padding-top:20px}
     .hero h1{font-size:34px}
-    .grid3,.grid2{grid-template-columns:1fr}
+    .grid3,.grid2,.grid2.wide{grid-template-columns:1fr}
     .flow{grid-template-columns:1fr;gap:22px}
     .step{margin-right:0}
     .step:not(:last-child)::after{right:50%;top:auto;bottom:-17px;transform:translateX(50%) rotate(135deg)}
     .stats{grid-template-columns:1fr 1fr}
+    .tiles{grid-template-columns:repeat(3,1fr);gap:10px}
+    .logo{width:min(220px,60%)}
     .nav ul{display:none}
     section{padding:52px 0}
     .tbl{font-size:13.5px}
@@ -131,8 +142,8 @@
         </div>
         <div class="by">Jyothi Masina and Shruti Deulgaonkar · UNC Charlotte · Fall 2026</div>
       </div>
-      <div class="media">
-        <video src="assets/sample_happy.mp4" poster="assets/sample_poster.jpg" controls playsinline preload="metadata"></video>
+      <div class="logo-wrap">
+        <img class="logo" src="assets/icon.png" alt="ProbTalk3D Studio logo: a sound wave above a smile">
       </div>
     </div>
   </div>
@@ -164,15 +175,30 @@
 <section>
   <div class="wrap">
     <h2>Emotion control and variety, side by side</h2>
-    <p class="sub">Rendered with our own HD face renderer, which adds eyes, eyebrows and lips to the FLAME head model without Blender.</p>
-    <div class="grid2">
+    <p class="sub">Rendered with our own HD face renderer, which adds hair, eyes, eyebrows and lips to the FLAME head model without Blender.</p>
+    <figure class="frame" style="margin-bottom:28px">
+      <div class="tiles">
+        <div class="tile"><img src="assets/emo_happy_high.jpg" alt="Happy, high intensity"><span>Happy, high</span></div>
+        <div class="tile"><img src="assets/emo_sad_low.jpg" alt="Sad, low intensity"><span>Sad, low</span></div>
+        <div class="tile"><img src="assets/emo_surprised_high.jpg" alt="Surprised, high intensity"><span>Surprised, high</span></div>
+        <div class="tile"><img src="assets/emo_angry_high.jpg" alt="Angry, high intensity"><span>Angry, high</span></div>
+        <div class="tile"><img src="assets/emo_disgusted_low.jpg" alt="Disgusted, low intensity"><span>Disgusted, low</span></div>
+        <div class="tile"><img src="assets/emo_surprised_medium.jpg" alt="Surprised, medium intensity"><span>Surprised, medium</span></div>
+      </div>
+      <figcaption>Different emotion and intensity settings on the authors' test clips. Watch the brows and the mouth.</figcaption>
+    </figure>
+    <div class="grid2 wide">
       <figure class="frame">
-        <img src="assets/emotion_grid.jpg" alt="The same neutral sentence rendered with eight different emotion settings">
-        <figcaption>Same sentence and speaker, sampling off; only the emotion setting changes.</figcaption>
+        <div class="tiles three">
+          <div class="tile"><img src="assets/take_1.jpg" alt="Take 1"><span>Take 1</span></div>
+          <div class="tile"><img src="assets/take_2.jpg" alt="Take 2"><span>Take 2</span></div>
+          <div class="tile"><img src="assets/take_3.jpg" alt="Take 3"><span>Take 3</span></div>
+        </div>
+        <figcaption>Same input run three times (happy.wav, speaker M009, happy, medium). Only the codebook sampling differs, so each mouth is different at the same moment. T = 1.0 here to make it easy to see.</figcaption>
       </figure>
       <figure class="frame">
-        <video src="assets/takes.mp4" autoplay muted loop playsinline></video>
-        <figcaption>Same audio, speaker and emotion, run three times. Only the codebook sampling differs, so each mouth moves slightly differently.</figcaption>
+        <video src="assets/sample_happy.mp4" poster="assets/sample_poster.jpg" controls playsinline preload="metadata"></video>
+        <figcaption>Press play with sound on: a 6-second happy clip straight from the studio.</figcaption>
       </figure>
     </div>
   </div>
