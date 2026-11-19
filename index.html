@@ -305,12 +305,12 @@ c.predict(..., api_name="/generate")</div>
 <section>
   <div class="wrap">
     <h2>What people saw</h2>
-    <p class="sub">An anonymous survey of 20 people who watched 12 short clips: 4 rated with sound, 6 silent clips where they guessed the emotion, and 2 take pairs (one an identical control).</p>
+    <p class="sub">An anonymous survey of 25 people who watched 12 short clips: 4 rated with sound, 6 silent clips where they guessed the emotion, and 2 take pairs (one an identical control).</p>
     <div class="stats">
-      <div class="stat"><div class="v">3.75<span style="font-size:18px;color:var(--muted)">/5</span></div><div class="l">Lip-sync rating</div></div>
-      <div class="stat"><div class="v">3.35<span style="font-size:18px;color:var(--muted)">/5</span></div><div class="l">Naturalness (no skin texture or hair)</div></div>
-      <div class="stat"><div class="v">41%</div><div class="l">Emotion guessed right on silent clips, vs 12.5% chance</div></div>
-      <div class="stat"><div class="v">13<span style="font-size:18px;color:var(--muted)">/20</span></div><div class="l">Noticed that sampled takes differ</div></div>
+      <div class="stat"><div class="v">3.91<span style="font-size:18px;color:var(--muted)">/5</span></div><div class="l">Lip-sync rating</div></div>
+      <div class="stat"><div class="v">3.50<span style="font-size:18px;color:var(--muted)">/5</span></div><div class="l">Naturalness (no skin texture yet)</div></div>
+      <div class="stat"><div class="v">39%</div><div class="l">Emotion guessed right on silent clips, more than 3× the 12.5% chance</div></div>
+      <div class="stat"><div class="v">15<span style="font-size:18px;color:var(--muted)">/25</span></div><div class="l">Noticed that sampled takes differ</div></div>
     </div>
     <div class="grid2">
       <figure class="frame">
@@ -319,7 +319,7 @@ c.predict(..., api_name="/generate")</div>
       </figure>
       <figure class="frame">
         <img src="assets/confusion.jpg" alt="Confusion matrix of emotion guesses">
-        <figcaption>Sad was easiest. Fear was read as surprise and disgust as anger, the same mix-ups people make with real faces.</figcaption>
+        <figcaption>Sad was easiest (60%). Fear was mostly read as surprise and disgust as anger, the same mix-ups people make with real faces.</figcaption>
       </figure>
     </div>
   </div>
@@ -334,7 +334,7 @@ c.predict(..., api_name="/generate")</div>
           <li>We evaluated 8 of the 32 test speakers, not the full set.</li>
           <li>We used the authors' pretrained weights and did not retrain.</li>
           <li>Rendering on CPU is the slow step (about 2 s per second of video).</li>
-          <li>The survey was small (20 people).</li>
+          <li>The survey was small (25 people).</li>
         </ul>
       </div>
       <div>
