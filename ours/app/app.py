@@ -92,8 +92,18 @@ def make_showcase():
         return None
 
 
-print("Rendering landing-page showcase ...", flush=True)
-SHOWCASE = make_showcase()
+def hero_logo_html():
+    """The app logo, shown in the hero instead of a rendered clip."""
+    import base64
+    icon = Path(__file__).resolve().parent / "assets" / "icon.png"
+    if not icon.exists():
+        return ""
+    data = base64.b64encode(icon.read_bytes()).decode()
+    return ('<div id="hero-logo"><img src="data:image/png;base64,' + data +
+            '" alt="ProbTalk3D Studio logo"></div>')
+
+
+HERO_LOGO = hero_logo_html()
 
 CSS = """
 :root, .dark {--pt-bg:#070a13; --pt-card:rgba(255,255,255,.035); --pt-line:rgba(255,255,255,.09);
@@ -124,6 +134,10 @@ body, .gradio-container {background: var(--pt-bg) !important;}
 @keyframes eq {0%,100% {height: 18%;} 50% {height: 100%;}}
 #showcase {border-radius: 22px !important; overflow: hidden; border: 1px solid var(--pt-line) !important;
            box-shadow: 0 30px 80px -30px rgba(124,108,255,.55), 0 0 0 1px rgba(255,255,255,.03) inset; background: #0d1222 !important;}
+#hero-logo {display: flex; justify-content: center; align-items: center; padding: 10px 0;}
+#hero-logo img {width: min(380px, 80%); aspect-ratio: 1; border-radius: 22%;
+                box-shadow: 0 30px 90px -25px rgba(124,108,255,.65); animation: floaty 6s ease-in-out infinite;}
+@keyframes floaty {0%,100% {transform: translateY(0);} 50% {transform: translateY(-10px);}}
 .stats {display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 26px 0 8px;}
 .stat {border: 1px solid var(--pt-line); background: var(--pt-card); border-radius: 16px; padding: 14px 16px; backdrop-filter: blur(8px);}
 .stat b {display: block; font-size: 1.5rem; color: var(--pt-text);}
@@ -244,9 +258,7 @@ with gr.Blocks(**blocks_kw) as demo:
         with gr.Column(scale=6):
             gr.HTML(HERO_TEXT)
         with gr.Column(scale=5):
-            if SHOWCASE:
-                gr.Video(value=SHOWCASE, autoplay=True, loop=True, show_label=False, elem_id="showcase",
-                         height=440, interactive=False)
+            gr.HTML(HERO_LOGO)
     gr.HTML(STATS + FEATURES)
     gr.HTML('<div id="studio" class="section-title">Studio</div>'
             '<div class="section-sub">Three steps: give it a voice, pick a style, choose how much it varies.</div>')
